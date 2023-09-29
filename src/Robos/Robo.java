@@ -17,7 +17,7 @@ public class Robo {
         this.posicao_atual = posicao;
     }
 
-    public int getRugosidadeTerreno(Celula celula) {
+    public double getRugosidadeTerreno(Celula celula) {
         return celula.getRugosidade_terreno();
     }
 

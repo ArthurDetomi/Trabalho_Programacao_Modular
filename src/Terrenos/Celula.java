@@ -2,19 +2,37 @@ package Terrenos;
 
 import utils.Posicao;
 
+import java.util.Random;
+
 public class Celula {
 
     private Posicao posicao;
-    private int concentracao_helio = 0;
-    private int rugosidade_terreno;
-    private int coeficiente_aleatorio;
+    private double concentracao_helio;
+    private double rugosidade_terreno;
+    private double coeficiente_aleatorio;
 
-    public Celula(Posicao posicao, int concentracao_helio,
-                  int rugosidade_terreno, int coeficiente_aleatorio) {
+    public Celula(Posicao posicao) {
         this.posicao = posicao;
-        this.concentracao_helio = concentracao_helio;
-        this.rugosidade_terreno = rugosidade_terreno;
-        this.coeficiente_aleatorio = coeficiente_aleatorio;
+        this.concentracao_helio = gerarDoubleAleatorioIntervalo(0d, 1d);
+        this.rugosidade_terreno = gerarDoubleAleatorioIntervalo(0d, 1d);
+        this.coeficiente_aleatorio = gerarDoubleAleatorioIntervalo(0d, 0.1d);
+    }
+
+    @Override
+    public String toString() {
+        String stringFormatada = String.format("(Pos(%d, %d), valores(ch = %f, rt = %f, coe = %f))",
+                getPosicao().getX(),
+                getPosicao().getY(),
+                concentracao_helio,
+                rugosidade_terreno,
+                coeficiente_aleatorio
+        );
+        return stringFormatada;
+    }
+
+    private double gerarDoubleAleatorioIntervalo(double minimo, double maximo) {
+        Random random = new Random();
+        return minimo + (maximo - minimo) * random.nextDouble();
     }
 
     public Posicao getPosicao() {
@@ -25,15 +43,15 @@ public class Celula {
         this.posicao = posicao;
     }
 
-    public int getConcentracao_helio() {
+    public double getConcentracao_helio() {
         return concentracao_helio;
     }
 
-    public void setConcentracao_helio(int concentracao_helio) {
+    public void setConcentracao_helio(double concentracao_helio) {
         this.concentracao_helio = concentracao_helio;
     }
 
-    public int getRugosidade_terreno() {
+    public double getRugosidade_terreno() {
         return rugosidade_terreno;
     }
 
@@ -41,11 +59,11 @@ public class Celula {
         this.rugosidade_terreno = rugosidade_terreno;
     }
 
-    public int getCoeficiente_aleatorio() {
+    public double getCoeficiente_aleatorio() {
         return coeficiente_aleatorio;
     }
 
-    public void setCoeficiente_aleatorio(int coeficiente_aleatorio) {
+    public void setCoeficiente_aleatorio(double coeficiente_aleatorio) {
         this.coeficiente_aleatorio = coeficiente_aleatorio;
     }
 }

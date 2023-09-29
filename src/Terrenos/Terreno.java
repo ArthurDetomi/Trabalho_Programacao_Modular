@@ -25,15 +25,26 @@ public class Terreno {
 
         for (int i = 0; i < QUANTIDADE_LINHAS; i++) {
             for (int j = 0; j < QUANTIDADE_COLUNAS; j++) {
-                terreno[i][j] = new Celula(
-                        new Posicao(i, j),
-                        1,
-                        1,
-                        1
-                );
+                terreno[i][j] = new Celula(new Posicao(i, j));
             }
         }
     }
 
+    public void imprimirTerreno() {
+        for (int i = 0; i < QUANTIDADE_LINHAS; i++) {
+            for (int j = 0; j < QUANTIDADE_COLUNAS; j++) {
+                System.out.print(terreno[i][j]);
+            }
+            System.out.println();
+        }
+    }
+
+    public int getQUANTIDADE_LINHAS() {
+        return QUANTIDADE_LINHAS;
+    }
+
+    public int getQUANTIDADE_COLUNAS() {
+        return QUANTIDADE_COLUNAS;
+    }
 
 }
