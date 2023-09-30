@@ -20,14 +20,13 @@ public class Celula {
 
     @Override
     public String toString() {
-        String stringFormatada = String.format("(Pos(%d, %d), valores(ch = %f, rt = %f, coe = %f))",
+        return String.format("(Pos(%d, %d), valores(ch = %f, rt = %f, coe = %f))",
                 getPosicao().getX(),
                 getPosicao().getY(),
                 concentracao_helio,
                 rugosidade_terreno,
                 coeficiente_aleatorio
         );
-        return stringFormatada;
     }
 
     private double gerarDoubleAleatorioIntervalo(double minimo, double maximo) {
