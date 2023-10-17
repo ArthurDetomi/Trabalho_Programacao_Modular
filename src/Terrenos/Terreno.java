@@ -1,7 +1,5 @@
 package Terrenos;
 
-import utils.Posicao;
-
 public class Terreno {
 
     private final int QUANTIDADE_LINHAS;
@@ -39,6 +37,18 @@ public class Terreno {
         }
     }
 
+    private boolean posicaoEhValida(Posicao posicao) {
+        return posicao.getX() < 0 || posicao.getX() >= QUANTIDADE_COLUNAS ||
+                posicao.getY() < 0 || posicao.getY() >= QUANTIDADE_LINHAS;
+    }
+
+    public Celula getCelulaPosicao(Posicao posicao) {
+        if (!posicaoEhValida(posicao)) {
+            return null;
+        }
+        return terreno[posicao.getX()][posicao.getY()];
+    }
+
     public int getQUANTIDADE_LINHAS() {
         return QUANTIDADE_LINHAS;
     }
@@ -46,5 +56,6 @@ public class Terreno {
     public int getQUANTIDADE_COLUNAS() {
         return QUANTIDADE_COLUNAS;
     }
+
 
 }

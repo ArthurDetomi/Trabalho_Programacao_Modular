@@ -1,7 +1,5 @@
 package Terrenos;
 
-import utils.Posicao;
-
 import java.util.Random;
 
 public class Celula {
