@@ -37,13 +37,13 @@ public class Terreno {
         }
     }
 
-    private boolean posicaoEhValida(Posicao posicao) {
+    private boolean posicaoNaoEhValida(Posicao posicao) {
         return posicao.getX() < 0 || posicao.getX() >= QUANTIDADE_COLUNAS ||
                 posicao.getY() < 0 || posicao.getY() >= QUANTIDADE_LINHAS;
     }
 
     public Celula getCelulaPosicao(Posicao posicao) {
-        if (!posicaoEhValida(posicao)) {
+        if (posicaoNaoEhValida(posicao)) {
             return null;
         }
         return terreno[posicao.getX()][posicao.getY()];

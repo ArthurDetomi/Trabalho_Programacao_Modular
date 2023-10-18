@@ -14,12 +14,31 @@ public class Robo {
     private Direcoes direcao_atual;
     private double quantidade_coletada_helio = 0;
     private Date horaInicioColeta;
-    private final long TEMPO_TOTAL;
+    // Exemplo 10 segundos, como foi especificado no trabalho
+    private final long TEMPO_TOTAL = 10L;
 
-    public Robo(Controlador controlador, long tempoTotal) {
+    public Robo(Controlador controlador, Celula celulaPouso, Direcoes direcaoInicial) {
+        if (celulaPouso == null || celulaPouso.isTemRobo()) {
+            throw new IllegalArgumentException("Celula de pouso inválida");
+        }
+
         this.controlador = controlador;
         controlador.setRobo(this);
-        TEMPO_TOTAL = tempoTotal;
+        this.celulaAtual = celulaPouso;
+        this.direcao_atual = direcaoInicial;
+        this.celulaAtual.setTemRobo(true);
+    }
+
+    @Override
+    public String toString() {
+        return "Robo{" +
+                "celulaAtual=" + celulaAtual +
+                ", controlador=" + controlador +
+                ", direcao_atual=" + direcao_atual +
+                ", quantidade_coletada_helio=" + quantidade_coletada_helio +
+                ", horaInicioColeta=" + horaInicioColeta +
+                ", TEMPO_TOTAL=" + TEMPO_TOTAL +
+                '}';
     }
 
     public Posicao getPosicaoAtual() {
@@ -41,7 +60,11 @@ public class Robo {
 
         Celula celulaLeitura = terrenoLeitura.getCelulaPosicao(posicaoApontada);
 
-        mapa.put(direcao_atual, celulaLeitura.getRugosidadeTerreno());
+        if (celulaLeitura == null) {
+            mapa.put(direcao_atual, null);
+        } else {
+            mapa.put(direcao_atual, celulaLeitura.getRugosidadeTerreno());
+        }
 
         return mapa;
     }
@@ -89,7 +112,9 @@ public class Robo {
 
 
         this.quantidade_coletada_helio += celulaAtual.getConcentracaoHelio();
+        celulaAtual.setConcentracaoHelio(0d);
         horaInicioColeta = null;
+
         return true;
     }
 
@@ -98,8 +123,25 @@ public class Robo {
             throw new IllegalArgumentException("Parâmetros não podem ser nulos");
         }
 
+        // Se ele está fazendo uma coleta não pode se movimentar
+        if (horaInicioColeta != null) {
+            return false;
+        }
+
         if (movimento == Movimentacao.ANDA) {
             Long atraso = getTempoDuracaoMovimento(terreno);
+
+            Celula novaCelula = terreno.getCelulaPosicao(atualizarPosicaoComDirecaoAtual(getPosicaoAtual()));
+
+            if (novaCelula == null) {
+                System.out.println("Está saindo dos limites do terreno");
+                return false;
+            }
+
+            if (novaCelula.isTemRobo()) {
+                System.out.println("Celula já possui um robo");
+                return false;
+            }
 
             if (atraso == null) {
                 throw new IllegalArgumentException("Atraso nulo");
@@ -116,7 +158,8 @@ public class Robo {
                 }
             }
 
-            celulaAtual = terreno.getCelulaPosicao(atualizarPosicaoComDirecaoAtual(getPosicaoAtual()));
+            celulaAtual.setTemRobo(false);
+            celulaAtual = novaCelula;
         } else {
             atualizaDirecaoComMovimento(movimento);
         }
@@ -127,30 +170,30 @@ public class Robo {
         switch (direcao_atual) {
             case CIMA:
                 if (movimento == Movimentacao.DIREITA) {
-                    direcao_atual = Direcoes.DIREITA;
+                    this.direcao_atual = Direcoes.DIREITA;
                 } else  if (movimento == Movimentacao.ESQUERDA) {
-                    direcao_atual = Direcoes.ESQUERDA;
+                    this.direcao_atual = Direcoes.ESQUERDA;
                 }
                 break;
             case BAIXO:
                 if (movimento == Movimentacao.DIREITA) {
-                    direcao_atual = Direcoes.ESQUERDA;
+                    this.direcao_atual = Direcoes.ESQUERDA;
                 } else  if (movimento == Movimentacao.ESQUERDA) {
-                    direcao_atual = Direcoes.DIREITA;
+                    this.direcao_atual = Direcoes.DIREITA;
                 }
                 break;
             case DIREITA:
                 if (movimento == Movimentacao.DIREITA) {
-                    direcao_atual = Direcoes.BAIXO;
+                    this.direcao_atual = Direcoes.BAIXO;
                 } else  if (movimento == Movimentacao.ESQUERDA) {
-                    direcao_atual = Direcoes.CIMA;
+                    this.direcao_atual = Direcoes.CIMA;
                 }
                 break;
             case ESQUERDA:
                 if (movimento == Movimentacao.DIREITA) {
-                    direcao_atual = Direcoes.CIMA;
+                    this.direcao_atual = Direcoes.CIMA;
                 } else  if (movimento == Movimentacao.ESQUERDA) {
-                    direcao_atual = Direcoes.BAIXO;
+                    this.direcao_atual = Direcoes.BAIXO;
                 }
                 break;
         }
@@ -160,13 +203,13 @@ public class Robo {
         return (long) ((getConcentracaoHelioPosicaoAtual() * TEMPO_TOTAL) / 0.1);
     }
 
-    private Long getTempoDuracaoMovimento(Terreno terreno) {
+    private long getTempoDuracaoMovimento(Terreno terreno) {
         Map<Direcoes, Double> rugosidadeRegiao = getRugosidadeRegiao(terreno);
         Double rugosidade = rugosidadeRegiao.get(direcao_atual);
         if (rugosidade != null) {
             return (long) ((rugosidade * TEMPO_TOTAL) / 0.1);
         }
-        return null;
+        return 0L;
     }
 
     public long getTempoDecorridoMillis() {
