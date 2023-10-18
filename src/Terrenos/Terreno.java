@@ -21,17 +21,17 @@ public class Terreno {
     private void inicializarTerreno() {
         terreno = new Celula[QUANTIDADE_LINHAS][QUANTIDADE_COLUNAS];
 
-        for (int i = 0; i < QUANTIDADE_LINHAS; i++) {
-            for (int j = 0; j < QUANTIDADE_COLUNAS; j++) {
-                terreno[i][j] = new Celula(new Posicao(i, j));
+        for (int j = QUANTIDADE_LINHAS-1; j >= 0; j--) { // o (0,0) tem que ser a esquerda inferior e tem que see(x,y), e estava (y,x)
+            for (int i = 0; i < QUANTIDADE_COLUNAS; i++) {
+                terreno[j][i] = new Celula(new Posicao(j, i));
             }
         }
     }
 
     public void imprimirTerreno() {
-        for (int i = 0; i < QUANTIDADE_LINHAS; i++) {
-            for (int j = 0; j < QUANTIDADE_COLUNAS; j++) {
-                System.out.print(terreno[i][j]);
+        for (int j = QUANTIDADE_LINHAS-1; j >= 0; j--) {
+            for (int i = 0; i < QUANTIDADE_COLUNAS; i++) {
+                System.out.print(terreno[j][i]);
             }
             System.out.println();
         }
