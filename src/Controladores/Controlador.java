@@ -31,7 +31,7 @@ public class Controlador {
         this.robo = robo;
     }
 
-    public boolean realizarSonda() {
+    public synchronized boolean realizarSonda() {
         podeRealizarAcao = false;
 
         boolean resultado = robo.coletarHelio();
