@@ -15,7 +15,7 @@ public class Robo {
     private double quantidade_coletada_helio = 0;
     private Date horaInicioColeta;
     // Exemplo 10 segundos, como foi especificado no trabalho
-    private final long TEMPO_TOTAL = 10L;
+    private final long TEMPO_TOTAL = 10000L;
 
     public Robo(Controlador controlador, Celula celulaPouso, Direcoes direcaoInicial) {
         if (celulaPouso == null || celulaPouso.isTemRobo()) {
