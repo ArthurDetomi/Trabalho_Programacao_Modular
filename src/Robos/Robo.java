@@ -129,7 +129,7 @@ public class Robo {
         }
 
         if (movimento == Movimentacao.ANDA) {
-            Long atraso = getTempoDuracaoMovimento(terreno);
+            long atraso = getTempoDuracaoMovimento(terreno);
 
             Celula novaCelula = terreno.getCelulaPosicao(atualizarPosicaoComDirecaoAtual(getPosicaoAtual()));
 
@@ -141,10 +141,6 @@ public class Robo {
             if (novaCelula.isTemRobo()) {
                 System.out.println("Celula já possui um robo");
                 return false;
-            }
-
-            if (atraso == null) {
-                throw new IllegalArgumentException("Atraso nulo");
             }
 
             Date dataInicial = new Date();
