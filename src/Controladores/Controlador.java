@@ -12,7 +12,7 @@ public class Controlador {
 
     private Robo robo;
 
-    private int tempoEspera;
+    public boolean podeRealizarAcao;
 
     public Controlador() {
 
@@ -22,14 +22,6 @@ public class Controlador {
         return robo;
     }
 
-    public int getTempoEspera() {
-        return tempoEspera;
-    }
-
-    public void setTempoEspera(int tempoEspera) {
-        this.tempoEspera = tempoEspera;
-    }
-
     public Controlador(Robo robo) {
         this.robo = robo;
         robo.setControlador(this);
@@ -37,6 +29,16 @@ public class Controlador {
 
     public void setRobo(Robo robo) {
         this.robo = robo;
+    }
+
+    public boolean realizarSonda() {
+        podeRealizarAcao = false;
+
+        boolean resultado = robo.coletarHelio();
+
+        podeRealizarAcao = true;
+
+        return resultado;
     }
 
     public Posicao getPosicaoAtualRobo() {
@@ -56,7 +58,16 @@ public class Controlador {
     }
 
     public boolean movimentarRobo(Movimentacao movimento, Terreno terreno) {
-        return robo.movimentar(movimento, terreno);
+        if (!podeRealizarAcao) {
+            return false;
+        }
+        podeRealizarAcao = false;
+
+        boolean resultado = robo.movimentar(movimento, terreno);
+
+        podeRealizarAcao = true;
+
+        return resultado;
     }
 
 }
