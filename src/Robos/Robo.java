@@ -202,14 +202,14 @@ public class Robo {
     }
 
     private long getTempoDuracaoColeta() {
-        return (long) ((getConcentracaoHelioPosicaoAtual() * TEMPO_TOTAL) / 0.1);
+        return (long) getConcentracaoHelioPosicaoAtual() * TEMPO_TOTAL;
     }
 
     private long getTempoDuracaoMovimento(Terreno terreno) {
         Map<Direcoes, Double> rugosidadeRegiao = getRugosidadeRegiao(terreno);
         Double rugosidade = rugosidadeRegiao.get(direcao_atual);
         if (rugosidade != null) {
-            return (long) ((rugosidade * TEMPO_TOTAL) / 0.1);
+            return (long) (rugosidade * TEMPO_TOTAL);
         }
         return 0L;
     }
