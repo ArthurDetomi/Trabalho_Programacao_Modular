@@ -31,7 +31,7 @@ public class Robo {
     }
 
     public double getRugosidadePosicaoAtual() {
-        return celulaAtual.getRugosidade_terreno();
+        return celulaAtual.getRugosidadeTerreno();
     }
 
     public Map<Direcoes, Double> getRugosidadeRegiao(Terreno terrenoLeitura) {
@@ -41,7 +41,7 @@ public class Robo {
 
         Celula celulaLeitura = terrenoLeitura.getCelulaPosicao(posicaoApontada);
 
-        mapa.put(direcao_atual, celulaLeitura.getRugosidade_terreno());
+        mapa.put(direcao_atual, celulaLeitura.getRugosidadeTerreno());
 
         return mapa;
     }
@@ -69,10 +69,10 @@ public class Robo {
     }
 
     public double getConcentracaoHelioPosicaoAtual() {
-        return celulaAtual.getConcentracao_helio() + celulaAtual.getCoeficiente_aleatorio();
+        return celulaAtual.getConcentracaoHelio() + celulaAtual.getCoeficienteAleatorio();
     }
 
-    public boolean coletarHelio(Celula celula) {
+    public boolean coletarHelio() {
         horaInicioColeta = new Date();
 
         long atraso = getTempoDuracaoColeta();
@@ -87,38 +87,86 @@ public class Robo {
             }
         }
 
-        this.quantidade_coletada_helio += celula.getConcentracao_helio();
+
+        this.quantidade_coletada_helio += celulaAtual.getConcentracaoHelio();
+        horaInicioColeta = null;
         return true;
     }
 
     public boolean movimentar(Movimentacao movimento, Terreno terreno) {
-        switch (movimento) {
-            case ANDA:
-                long atraso = getTempoDuracaoMovimento();
+        if (movimento == null || terreno == null) {
+            throw new IllegalArgumentException("Parâmetros não podem ser nulos");
+        }
 
-                Date horaColeta = new Date(horaInicioColeta.getTime() + atraso);
+        if (movimento == Movimentacao.ANDA) {
+            Long atraso = getTempoDuracaoMovimento(terreno);
 
-                while (new Date().before(horaColeta)) {
-                    try {
-                        Thread.sleep(1000); // Espera 1 segundo
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+            if (atraso == null) {
+                throw new IllegalArgumentException("Atraso nulo");
+            }
+
+            Date dataInicial = new Date();
+            Date dataFinal = new Date(dataInicial.getTime() + atraso);
+
+            while (new Date().before(dataFinal)) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                this.celulaAtual = terreno.getCelulaPosicao(atualizarPosicaoComDirecaoAtual(getPosicaoAtual()));
-            case DIREITA:
+            }
 
-            case ESQUERDA:
+            celulaAtual = terreno.getCelulaPosicao(atualizarPosicaoComDirecaoAtual(getPosicaoAtual()));
+        } else {
+            atualizaDirecaoComMovimento(movimento);
         }
         return true;
+    }
+
+    private void atualizaDirecaoComMovimento(Movimentacao movimento) {
+        switch (direcao_atual) {
+            case CIMA:
+                if (movimento == Movimentacao.DIREITA) {
+                    direcao_atual = Direcoes.DIREITA;
+                } else  if (movimento == Movimentacao.ESQUERDA) {
+                    direcao_atual = Direcoes.ESQUERDA;
+                }
+                break;
+            case BAIXO:
+                if (movimento == Movimentacao.DIREITA) {
+                    direcao_atual = Direcoes.ESQUERDA;
+                } else  if (movimento == Movimentacao.ESQUERDA) {
+                    direcao_atual = Direcoes.DIREITA;
+                }
+                break;
+            case DIREITA:
+                if (movimento == Movimentacao.DIREITA) {
+                    direcao_atual = Direcoes.BAIXO;
+                } else  if (movimento == Movimentacao.ESQUERDA) {
+                    direcao_atual = Direcoes.CIMA;
+                }
+                break;
+            case ESQUERDA:
+                if (movimento == Movimentacao.DIREITA) {
+                    direcao_atual = Direcoes.CIMA;
+                } else  if (movimento == Movimentacao.ESQUERDA) {
+                    direcao_atual = Direcoes.BAIXO;
+                }
+                break;
+        }
     }
 
     private long getTempoDuracaoColeta() {
         return (long) ((getConcentracaoHelioPosicaoAtual() * TEMPO_TOTAL) / 0.1);
     }
 
-    private long getTempoDuracaoMovimento() {
-        return (long) ((getRugosidadePosicaoAtual() * TEMPO_TOTAL) / 0.1);
+    private Long getTempoDuracaoMovimento(Terreno terreno) {
+        Map<Direcoes, Double> rugosidadeRegiao = getRugosidadeRegiao(terreno);
+        Double rugosidade = rugosidadeRegiao.get(direcao_atual);
+        if (rugosidade != null) {
+            return (long) ((rugosidade * TEMPO_TOTAL) / 0.1);
+        }
+        return null;
     }
 
     public long getTempoDecorridoMillis() {
