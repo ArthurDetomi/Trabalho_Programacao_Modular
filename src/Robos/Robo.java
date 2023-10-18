@@ -158,8 +158,10 @@ public class Robo {
                 }
             }
 
-            celulaAtual.setTemRobo(false);
-            celulaAtual = novaCelula;
+            this.celulaAtual.setTemRobo(false);
+
+            this.celulaAtual = novaCelula;
+            this.celulaAtual.setTemRobo(true);
         } else {
             atualizaDirecaoComMovimento(movimento);
         }

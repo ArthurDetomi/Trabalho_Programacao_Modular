@@ -24,13 +24,13 @@ public class Celula {
 
     @Override
     public String toString() {
-        return String.format("(Pos(%d, %d), valores(ch = %f, rt = %f, coe = %f))",
+        return String.format("(Pos(%d, %d), valores(ch = %f, rt = %f, coe = %f,",
                 getPosicao().getX(),
                 getPosicao().getY(),
                 concentracaoHelio,
                 rugosidadeTerreno,
                 coeficienteAleatorio
-        );
+        ) +"temRobo = "+ temRobo + " )";
     }
 
     private double gerarDoubleAleatorioIntervalo(double minimo, double maximo) {
