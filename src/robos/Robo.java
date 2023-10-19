@@ -1,14 +1,17 @@
-package Robos;
+package robos;
 
-import Controladores.Controlador;
-import Terrenos.Celula;
-import Terrenos.Posicao;
-import Terrenos.Terreno;
+import controladores.Controlador;
+import terrenos.Celula;
+import terrenos.Posicao;
+import terrenos.Terreno;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Robo {
 
+    private static final AtomicInteger idGenerator = new AtomicInteger(1);
+    private final Integer id;
     private Celula celulaAtual;
     private Controlador controlador;
     private Direcoes direcao_atual;
@@ -22,6 +25,7 @@ public class Robo {
             throw new IllegalArgumentException("Celula de pouso inválida");
         }
 
+        this.id = idGenerator.getAndIncrement();
         this.controlador = controlador;
         controlador.setRobo(this);
         this.celulaAtual = celulaPouso;
@@ -39,6 +43,23 @@ public class Robo {
                 ", horaInicioColeta=" + horaInicioColeta +
                 ", TEMPO_TOTAL=" + TEMPO_TOTAL +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Robo robo = (Robo) o;
+        return Objects.equals(id, robo.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public Posicao getPosicaoAtual() {

@@ -1,4 +1,4 @@
-package Robos;
+package robos;
 
 public enum Movimentacao {
 

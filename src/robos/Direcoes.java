@@ -1,6 +1,4 @@
-package Robos;
-
-import Terrenos.Posicao;
+package robos;
 
 public enum Direcoes {
 

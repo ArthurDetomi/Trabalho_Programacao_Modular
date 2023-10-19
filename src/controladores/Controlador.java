@@ -1,10 +1,10 @@
-package Controladores;
+package controladores;
 
-import Robos.Direcoes;
-import Robos.Movimentacao;
-import Robos.Robo;
-import Terrenos.Posicao;
-import Terrenos.Terreno;
+import robos.Direcoes;
+import robos.Movimentacao;
+import robos.Robo;
+import terrenos.Posicao;
+import terrenos.Terreno;
 
 import java.util.Map;
 
@@ -68,6 +68,10 @@ public class Controlador {
         podeRealizarAcao = true;
 
         return resultado;
+    }
+
+    public void run() {
+
     }
 
 }

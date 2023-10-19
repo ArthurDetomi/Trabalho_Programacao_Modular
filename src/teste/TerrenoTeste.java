@@ -1,6 +1,6 @@
 package teste;
 
-import Terrenos.Terreno;
+import terrenos.Terreno;
 
 public class TerrenoTeste {
     public static void main(String[] args) {

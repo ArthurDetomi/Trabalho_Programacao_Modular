@@ -1,4 +1,4 @@
-package Terrenos;
+package terrenos;
 
 public class Terreno {
 

@@ -1,12 +1,12 @@
 package teste;
 
-import Controladores.Controlador;
-import Robos.Direcoes;
-import Robos.Movimentacao;
-import Robos.Robo;
-import Terrenos.Celula;
-import Terrenos.Posicao;
-import Terrenos.Terreno;
+import controladores.Controlador;
+import robos.Direcoes;
+import robos.Movimentacao;
+import robos.Robo;
+import terrenos.Celula;
+import terrenos.Posicao;
+import terrenos.Terreno;
 
 public class RoboTeste {
 

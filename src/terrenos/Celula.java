@@ -1,4 +1,4 @@
-package Terrenos;
+package terrenos;
 
 import java.util.Random;
 
