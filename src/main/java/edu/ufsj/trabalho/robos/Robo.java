@@ -38,7 +38,8 @@ public class Robo {
     @Override
     public String toString() {
         return "Robo{" +
-                "celulaAtual=" + celulaAtual +
+                "id = " + id +
+                ", celulaAtual=" + celulaAtual +
                 ", direcao_atual=" + direcaoAtual +
                 ", quantidade_coletada_helio=" + quantidadeColetadaHelio +
                 ", segundoDeInicio=" + segundoInicioColeta +

@@ -80,7 +80,7 @@ public class Controlador {
             }
         } else {
             CelulaAdjacente proximaCelula = robo.getRugosidadeRegiao(terreno);
-            if (proximaCelula.isVazia()) {
+            if (proximaCelula.isVazia() || proximaCelula.isTemRobo()) {
                 robo.movimentar(Movimentacao.DIREITA, terreno);
 
                 System.out.println("Robo andou para direita");
