@@ -1,4 +1,4 @@
-package edu.ufsj.trabalho.teste;
+package edu.ufsj.trabalho.terrenos;
 
 
 import com.google.gson.Gson;
