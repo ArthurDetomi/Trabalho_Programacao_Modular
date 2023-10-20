@@ -20,7 +20,7 @@ public class Robo {
     private boolean podeRealizarAcao;
     private long segundoInicioColeta;
     private int tempoGasto;
-    private static final long TEMPO_TOTAL = 10L;
+    private static final double TEMPO_TOTAL = 10L;
 
     public Robo(Controlador controlador, Celula celulaPouso, Direcoes direcaoInicial) {
         if (celulaPouso == null || celulaPouso.isTemRobo()) {
@@ -203,7 +203,7 @@ public class Robo {
     }
 
     private long getTempoDuracaoColeta() {
-        return (long) getConcentracaoHelioPosicaoAtual() * TEMPO_TOTAL;
+        return (long) (getConcentracaoHelioPosicaoAtual() * TEMPO_TOTAL);
     }
 
     private long getTempoDuracaoMovimento(Terreno terreno) {
