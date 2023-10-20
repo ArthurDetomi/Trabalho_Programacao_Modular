@@ -14,11 +14,11 @@ public class Robo {
     private final Integer id;
     private Celula celulaAtual;
     private Controlador controlador;
-    private Direcoes direcao_atual;
-    private double quantidade_coletada_helio = 0;
+    private Direcoes direcaoAtual;
+    private double quantidadeColetadaHelio = 0;
     private Date horaInicioColeta;
     // Exemplo 10 segundos, como foi especificado no trabalho
-    private final long TEMPO_TOTAL = 10000L;
+    private static final long TEMPO_TOTAL = 10000L;
 
     public Robo(Controlador controlador, Celula celulaPouso, Direcoes direcaoInicial) {
         if (celulaPouso == null || celulaPouso.isTemRobo()) {
@@ -29,7 +29,7 @@ public class Robo {
         this.controlador = controlador;
         controlador.setRobo(this);
         this.celulaAtual = celulaPouso;
-        this.direcao_atual = direcaoInicial;
+        this.direcaoAtual = direcaoInicial;
         this.celulaAtual.setTemRobo(true);
     }
 
@@ -38,8 +38,8 @@ public class Robo {
         return "Robo{" +
                 "celulaAtual=" + celulaAtual +
                 ", controlador=" + controlador +
-                ", direcao_atual=" + direcao_atual +
-                ", quantidade_coletada_helio=" + quantidade_coletada_helio +
+                ", direcao_atual=" + direcaoAtual +
+                ", quantidade_coletada_helio=" + quantidadeColetadaHelio +
                 ", horaInicioColeta=" + horaInicioColeta +
                 ", TEMPO_TOTAL=" + TEMPO_TOTAL +
                 '}';
@@ -66,8 +66,8 @@ public class Robo {
         return celulaAtual.getPosicao();
     }
 
-    public double getQuantidade_coletada_helio() {
-        return quantidade_coletada_helio;
+    public double getQuantidadeColetadaHelio() {
+        return quantidadeColetadaHelio;
     }
 
     public double getRugosidadePosicaoAtual() {
@@ -82,19 +82,19 @@ public class Robo {
         Celula celulaLeitura = terrenoLeitura.getCelulaPosicao(posicaoApontada);
 
         if (celulaLeitura == null) {
-            mapa.put(direcao_atual, null);
+            mapa.put(direcaoAtual, null);
         } else {
-            mapa.put(direcao_atual, celulaLeitura.getRugosidadeTerreno());
+            mapa.put(direcaoAtual, celulaLeitura.getRugosidadeTerreno());
         }
 
         return mapa;
     }
 
     private Posicao atualizarPosicaoComDirecaoAtual(Posicao posicao) {
-        int coluna = posicao.getX();
-        int linha = posicao.getY();
+        int coluna = posicao.getColuna();
+        int linha = posicao.getLinha();
 
-        switch (direcao_atual) {
+        switch (direcaoAtual) {
             case DIREITA:
                 coluna++;
                 break;
@@ -132,7 +132,7 @@ public class Robo {
         }
 
 
-        this.quantidade_coletada_helio += celulaAtual.getConcentracaoHelio();
+        this.quantidadeColetadaHelio += celulaAtual.getConcentracaoHelio();
         celulaAtual.setConcentracaoHelio(0d);
         horaInicioColeta = null;
 
@@ -186,33 +186,33 @@ public class Robo {
     }
 
     private void atualizaDirecaoComMovimento(Movimentacao movimento) {
-        switch (direcao_atual) {
+        switch (direcaoAtual) {
             case CIMA:
                 if (movimento == Movimentacao.DIREITA) {
-                    this.direcao_atual = Direcoes.DIREITA;
+                    this.direcaoAtual = Direcoes.DIREITA;
                 } else  if (movimento == Movimentacao.ESQUERDA) {
-                    this.direcao_atual = Direcoes.ESQUERDA;
+                    this.direcaoAtual = Direcoes.ESQUERDA;
                 }
                 break;
             case BAIXO:
                 if (movimento == Movimentacao.DIREITA) {
-                    this.direcao_atual = Direcoes.ESQUERDA;
+                    this.direcaoAtual = Direcoes.ESQUERDA;
                 } else  if (movimento == Movimentacao.ESQUERDA) {
-                    this.direcao_atual = Direcoes.DIREITA;
+                    this.direcaoAtual = Direcoes.DIREITA;
                 }
                 break;
             case DIREITA:
                 if (movimento == Movimentacao.DIREITA) {
-                    this.direcao_atual = Direcoes.BAIXO;
+                    this.direcaoAtual = Direcoes.BAIXO;
                 } else  if (movimento == Movimentacao.ESQUERDA) {
-                    this.direcao_atual = Direcoes.CIMA;
+                    this.direcaoAtual = Direcoes.CIMA;
                 }
                 break;
             case ESQUERDA:
                 if (movimento == Movimentacao.DIREITA) {
-                    this.direcao_atual = Direcoes.CIMA;
+                    this.direcaoAtual = Direcoes.CIMA;
                 } else  if (movimento == Movimentacao.ESQUERDA) {
-                    this.direcao_atual = Direcoes.BAIXO;
+                    this.direcaoAtual = Direcoes.BAIXO;
                 }
                 break;
         }
@@ -224,7 +224,7 @@ public class Robo {
 
     private long getTempoDuracaoMovimento(Terreno terreno) {
         Map<Direcoes, Double> rugosidadeRegiao = getRugosidadeRegiao(terreno);
-        Double rugosidade = rugosidadeRegiao.get(direcao_atual);
+        Double rugosidade = rugosidadeRegiao.get(direcaoAtual);
         if (rugosidade != null) {
             return (long) (rugosidade * TEMPO_TOTAL);
         }
@@ -241,8 +241,8 @@ public class Robo {
     }
 
 
-    public Direcoes getDirecao_atual() {
-        return direcao_atual;
+    public Direcoes getDirecaoAtual() {
+        return direcaoAtual;
     }
 
     public void setControlador(Controlador controlador) {
@@ -252,8 +252,8 @@ public class Robo {
         this.controlador = controlador;
     }
 
-    public void setDirecao_atual(Direcoes direcao_atual) {
-        this.direcao_atual = direcao_atual;
+    public void setDirecaoAtual(Direcoes direcaoAtual) {
+        this.direcaoAtual = direcaoAtual;
     }
 
     public void setCelulaAtual(Celula celulaAtual) {

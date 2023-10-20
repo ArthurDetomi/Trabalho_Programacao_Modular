@@ -16,21 +16,6 @@ public class ControladorTeste {
         Controlador controlador = new Controlador();
         Robo robo = new Robo(controlador, celula, Direcoes.DIREITA);
         controlador.setRobo(robo);
-
-        // Crie threads para realizar as ações
-        Thread threadColeta = new Thread(() -> {
-            boolean coletaBemSucedida = controlador.realizarSonda();
-            System.out.println("Coleta bem-sucedida? " + coletaBemSucedida);
-        });
-
-        Thread threadMovimento = new Thread(() -> {
-            boolean movimentoBemSucedido = controlador.movimentarRobo(Movimentacao.ANDA, terreno);
-            System.out.println("Movimento bem-sucedido? " + movimentoBemSucedido);
-        });
-
-        // Inicie as threads
-        threadColeta.start();
-        threadMovimento.start();
     }
 
 

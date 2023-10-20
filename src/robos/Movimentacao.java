@@ -2,7 +2,7 @@ package robos;
 
 public enum Movimentacao {
 
-    ANDA(0), ESQUERDA(1), DIREITA(2);
+    ANDA(0), ESQUERDA(1), DIREITA(2); // remover valor
 
     private final int valor;
 

@@ -25,8 +25,8 @@ public class Celula {
     @Override
     public String toString() {
         return String.format("(Pos(%d, %d), valores(ch = %f, rt = %f, coe = %f,",
-                getPosicao().getX(),
-                getPosicao().getY(),
+                getPosicao().getColuna(),
+                getPosicao().getLinha(),
                 concentracaoHelio,
                 rugosidadeTerreno,
                 coeficienteAleatorio

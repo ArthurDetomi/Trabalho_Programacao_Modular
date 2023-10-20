@@ -2,28 +2,28 @@ package terrenos;
 
 public class Posicao {
 
-    private int x;
-    private int y;
+    private int coluna;
+    private int linha;
 
-    public Posicao(int x, int y) {
-        this.x = x;
-        this.y = y;
+    public Posicao(int coluna, int linha) {
+        this.coluna = coluna;
+        this.linha = linha;
     }
 
-    public int getX() {
-        return x;
+    public int getColuna() {
+        return coluna;
     }
 
-    public void setX(int x) {
-        this.x = x;
+    public void setColuna(int coluna) {
+        this.coluna = coluna;
     }
 
-    public int getY() {
-        return y;
+    public int getLinha() {
+        return linha;
     }
 
-    public void setY(int y) {
-        this.y = y;
+    public void setLinha(int linha) {
+        this.linha = linha;
     }
     
 }

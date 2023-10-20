@@ -70,7 +70,7 @@ public class Controlador {
         return resultado;
     }
 
-    public void run() {
+    public void rodar() {
 
     }
 
