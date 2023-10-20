@@ -1,11 +1,26 @@
 package teste;
 
+import com.google.gson.Gson;
 import terrenos.Terreno;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
 
 public class TerrenoTeste {
     public static void main(String[] args) {
-        Terreno terreno = new Terreno(3, 3);
-        terreno.imprimirTerreno();
+        Gson gson = new Gson();
+        File json = new File("src/teste/TesteTerreno.json");
+
+    try {
+        FileReader leitor = new FileReader(json);
+        Terreno terreno = gson.fromJson(leitor, Terreno.class);
+               terreno.inicializarTerreno();
+                terreno.imprimirTerreno();
+    }
+    catch (FileNotFoundException e) {
+        System.out.printf("ERRO DE LEITURA");
+    }
     }
 
 }
