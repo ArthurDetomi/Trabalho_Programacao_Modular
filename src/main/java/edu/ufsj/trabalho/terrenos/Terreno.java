@@ -44,7 +44,7 @@ public class Terreno {
 
     public Celula getCelulaPosicao(Posicao posicao) {
         if (posicaoNaoEhValida(posicao)) {
-            return null;
+            return new Celula();
         }
         return terreno[posicao.getColuna()][posicao.getLinha()];
     }

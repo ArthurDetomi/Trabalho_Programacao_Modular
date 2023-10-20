@@ -22,11 +22,15 @@ public class Celula {
         temRobo = false;
     }
 
+    public boolean isVazia() {
+        return posicao == null;
+    }
+
     @Override
     public String toString() {
         return String.format("(Pos(%d, %d), valores(ch = %f, rt = %f, coe = %f,",
-                getPosicao().getColuna(),
                 getPosicao().getLinha(),
+                getPosicao().getColuna(),
                 concentracaoHelio,
                 rugosidadeTerreno,
                 coeficienteAleatorio

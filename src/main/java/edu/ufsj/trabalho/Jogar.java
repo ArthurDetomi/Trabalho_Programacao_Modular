@@ -18,12 +18,10 @@ public class Jogar {
 
         Celula celulaPouso = terreno.getCelulaPosicao(new Posicao(0, 0));
 
-        Robo robo = new Robo(controlador, celulaPouso, Direcoes.BAIXO);
+        Robo robo = new Robo(controlador, celulaPouso, Direcoes.DIREITA);
+
         // Iniciar loop do jogo
         int duracaoTotal = 180;
-
-
-
 
         while(duracaoTotal > 0) {
             controlador.iniciarEstrategia(terreno);

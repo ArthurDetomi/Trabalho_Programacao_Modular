@@ -80,7 +80,7 @@ public class Controlador {
             }
         } else {
             CelulaAdjacente proximaCelula = robo.getRugosidadeRegiao(terreno);
-            if (proximaCelula.getRugosidade() == null) {
+            if (proximaCelula.isVazia()) {
                 robo.movimentar(Movimentacao.DIREITA, terreno);
 
                 System.out.println("Robo andou para direita");
@@ -88,7 +88,9 @@ public class Controlador {
             } else if (proximaCelula.getRugosidade() < 0.9) {
                 boolean resultado = robo.movimentar(Movimentacao.ANDA, terreno);
                 if (!resultado) {
-                    System.out.println();
+                    System.out.println("tempo gasto desde o inicio comando movimento = " + robo.getTempoDecorridoSegundos());
+                } else {
+                    System.out.println(robo);
                 }
             }
         }

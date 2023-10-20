@@ -39,7 +39,6 @@ public class Robo {
     public String toString() {
         return "Robo{" +
                 "celulaAtual=" + celulaAtual +
-                ", controlador=" + controlador +
                 ", direcao_atual=" + direcaoAtual +
                 ", quantidade_coletada_helio=" + quantidadeColetadaHelio +
                 ", segundoDeInicio=" + segundoInicioColeta +
@@ -85,6 +84,9 @@ public class Robo {
     }
 
     private Posicao atualizarPosicaoComDirecaoAtual(Posicao posicao) {
+        if (posicao == null) {
+            throw new IllegalArgumentException("Posição está nula");
+        }
         int coluna = posicao.getColuna();
         int linha = posicao.getLinha();
 
@@ -124,7 +126,7 @@ public class Robo {
     }
 
     public boolean podeColetar(long atraso) {
-        if (tempoGasto == atraso) {
+        if (tempoGasto >= atraso) {
             this.tempoGasto = 0;
             return true;
         }
@@ -149,7 +151,7 @@ public class Robo {
 
             Celula novaCelula = terreno.getCelulaPosicao(atualizarPosicaoComDirecaoAtual(getPosicaoAtual()));
 
-            if (novaCelula == null) {
+            if (novaCelula.isVazia()) {
                 System.out.println("Está saindo dos limites do terreno");
                 return false;
             }
@@ -212,7 +214,7 @@ public class Robo {
         if (rugosidade != null) {
             return (long) (rugosidade * TEMPO_TOTAL);
         }
-        return 0L;
+        throw new IllegalArgumentException("Rugosidade vindo nulo");
     }
 
     public long getTempoDecorridoSegundos() {
