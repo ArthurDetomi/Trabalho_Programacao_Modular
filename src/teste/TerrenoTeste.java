@@ -1,15 +1,16 @@
 package teste;
 
-import com.google.gson.Gson;
+
 import terrenos.Terreno;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.Reader;
+
 
 public class TerrenoTeste {
+    /*
     public static void main(String[] args) {
-        Gson gson = new Gson();
+        // Gson gson = new Gson();
         File json = new File("src/teste/TesteTerreno.json");
 
     try {
@@ -23,4 +24,5 @@ public class TerrenoTeste {
     }
     }
 
+    */
 }

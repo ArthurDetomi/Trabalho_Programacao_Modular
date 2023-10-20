@@ -2,6 +2,7 @@ package robos;
 
 import controladores.Controlador;
 import terrenos.Celula;
+import terrenos.CelulaAdjacente;
 import terrenos.Posicao;
 import terrenos.Terreno;
 
@@ -16,9 +17,10 @@ public class Robo {
     private Controlador controlador;
     private Direcoes direcaoAtual;
     private double quantidadeColetadaHelio = 0;
-    private Date horaInicioColeta;
-    // Exemplo 10 segundos, como foi especificado no trabalho
-    private static final long TEMPO_TOTAL = 10000L;
+    private boolean podeRealizarAcao;
+    private long segundoInicioColeta;
+    private int tempoGasto;
+    private static final long TEMPO_TOTAL = 10L;
 
     public Robo(Controlador controlador, Celula celulaPouso, Direcoes direcaoInicial) {
         if (celulaPouso == null || celulaPouso.isTemRobo()) {
@@ -40,7 +42,7 @@ public class Robo {
                 ", controlador=" + controlador +
                 ", direcao_atual=" + direcaoAtual +
                 ", quantidade_coletada_helio=" + quantidadeColetadaHelio +
-                ", horaInicioColeta=" + horaInicioColeta +
+                ", segundoDeInicio=" + segundoInicioColeta +
                 ", TEMPO_TOTAL=" + TEMPO_TOTAL +
                 '}';
     }
@@ -74,20 +76,12 @@ public class Robo {
         return celulaAtual.getRugosidadeTerreno();
     }
 
-    public Map<Direcoes, Double> getRugosidadeRegiao(Terreno terrenoLeitura) {
-        Map<Direcoes, Double> mapa = new HashMap<>();
-
+    public CelulaAdjacente getRugosidadeRegiao(Terreno terrenoLeitura) {
         Posicao posicaoApontada = atualizarPosicaoComDirecaoAtual(getPosicaoAtual());
 
         Celula celulaLeitura = terrenoLeitura.getCelulaPosicao(posicaoApontada);
 
-        if (celulaLeitura == null) {
-            mapa.put(direcaoAtual, null);
-        } else {
-            mapa.put(direcaoAtual, celulaLeitura.getRugosidadeTerreno());
-        }
-
-        return mapa;
+        return new CelulaAdjacente(direcaoAtual, celulaLeitura);
     }
 
     private Posicao atualizarPosicaoComDirecaoAtual(Posicao posicao) {
@@ -117,26 +111,28 @@ public class Robo {
     }
 
     public boolean coletarHelio() {
-        horaInicioColeta = new Date();
-
         long atraso = getTempoDuracaoColeta();
 
-        Date horaColeta = new Date(horaInicioColeta.getTime() + atraso);
-
-        while (new Date().before(horaColeta)) {
-            try {
-                Thread.sleep(1000); // Espera 1 segundo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        if (!podeColetar(atraso)) {
+            return false;
         }
-
 
         this.quantidadeColetadaHelio += celulaAtual.getConcentracaoHelio();
         celulaAtual.setConcentracaoHelio(0d);
-        horaInicioColeta = null;
 
         return true;
+    }
+
+    public boolean podeColetar(long atraso) {
+        if (tempoGasto == atraso) {
+            this.tempoGasto = 0;
+            return true;
+        }
+        return false;
+    }
+
+    public void sinalizarTempoPassado() {
+        this.tempoGasto++;
     }
 
     public boolean movimentar(Movimentacao movimento, Terreno terreno) {
@@ -144,13 +140,12 @@ public class Robo {
             throw new IllegalArgumentException("Parâmetros não podem ser nulos");
         }
 
-        // Se ele está fazendo uma coleta não pode se movimentar
-        if (horaInicioColeta != null) {
-            return false;
-        }
-
         if (movimento == Movimentacao.ANDA) {
             long atraso = getTempoDuracaoMovimento(terreno);
+
+            if (!podeColetar(atraso)) {
+                return false;
+            }
 
             Celula novaCelula = terreno.getCelulaPosicao(atualizarPosicaoComDirecaoAtual(getPosicaoAtual()));
 
@@ -162,17 +157,6 @@ public class Robo {
             if (novaCelula.isTemRobo()) {
                 System.out.println("Celula já possui um robo");
                 return false;
-            }
-
-            Date dataInicial = new Date();
-            Date dataFinal = new Date(dataInicial.getTime() + atraso);
-
-            while (new Date().before(dataFinal)) {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
             }
 
             this.celulaAtual.setTemRobo(false);
@@ -190,28 +174,28 @@ public class Robo {
             case CIMA:
                 if (movimento == Movimentacao.DIREITA) {
                     this.direcaoAtual = Direcoes.DIREITA;
-                } else  if (movimento == Movimentacao.ESQUERDA) {
+                } else if (movimento == Movimentacao.ESQUERDA) {
                     this.direcaoAtual = Direcoes.ESQUERDA;
                 }
                 break;
             case BAIXO:
                 if (movimento == Movimentacao.DIREITA) {
                     this.direcaoAtual = Direcoes.ESQUERDA;
-                } else  if (movimento == Movimentacao.ESQUERDA) {
+                } else if (movimento == Movimentacao.ESQUERDA) {
                     this.direcaoAtual = Direcoes.DIREITA;
                 }
                 break;
             case DIREITA:
                 if (movimento == Movimentacao.DIREITA) {
                     this.direcaoAtual = Direcoes.BAIXO;
-                } else  if (movimento == Movimentacao.ESQUERDA) {
+                } else if (movimento == Movimentacao.ESQUERDA) {
                     this.direcaoAtual = Direcoes.CIMA;
                 }
                 break;
             case ESQUERDA:
                 if (movimento == Movimentacao.DIREITA) {
                     this.direcaoAtual = Direcoes.CIMA;
-                } else  if (movimento == Movimentacao.ESQUERDA) {
+                } else if (movimento == Movimentacao.ESQUERDA) {
                     this.direcaoAtual = Direcoes.BAIXO;
                 }
                 break;
@@ -223,21 +207,16 @@ public class Robo {
     }
 
     private long getTempoDuracaoMovimento(Terreno terreno) {
-        Map<Direcoes, Double> rugosidadeRegiao = getRugosidadeRegiao(terreno);
-        Double rugosidade = rugosidadeRegiao.get(direcaoAtual);
+        CelulaAdjacente rugosidadeRegiao = getRugosidadeRegiao(terreno);
+        Double rugosidade = rugosidadeRegiao.getRugosidade();
         if (rugosidade != null) {
             return (long) (rugosidade * TEMPO_TOTAL);
         }
         return 0L;
     }
 
-    public long getTempoDecorridoMillis() {
-        if (horaInicioColeta != null) {
-            long horaAtual = new Date().getTime();
-            return horaAtual - horaInicioColeta.getTime();
-        } else {
-            return 0L;
-        }
+    public long getTempoDecorridoSegundos() {
+        return tempoGasto;
     }
 
 
