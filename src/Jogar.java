@@ -1,18 +1,32 @@
+import controladores.Controlador;
+import robos.Direcoes;
+import robos.Robo;
+import terrenos.Celula;
+import terrenos.Posicao;
+import terrenos.Terreno;
+
 public class Jogar {
 
     public static void main(String[] args) {
         // Primeiro ler o arquivo
         // Segundo inicializar o terreno e os robo
+        Controlador controlador = new Controlador();
+
+        Terreno terreno = new Terreno(4, 4);
+
+        Celula celulaPouso = terreno.getCelulaPosicao(new Posicao(0, 0));
+
+        Robo robo = new Robo(controlador, celulaPouso, Direcoes.BAIXO);
         // Iniciar loop do jogo
-        int duracaoTotal = 20000;
+        int duracaoTotal = 180;
+
 
 
 
         while(duracaoTotal > 0) {
-            // Comunicar a todos os robôs que passou uma unidade de tempo
-            // Robôs irão gerar resultado de ações após a passagem do tempo
-            // Atualizar terreno conforme o resultado das ações
-            // Registra etapa
+            controlador.iniciarEstrategia(terreno);
+            robo.sinalizarTempoPassado();
+
             duracaoTotal--;
         }
     }
