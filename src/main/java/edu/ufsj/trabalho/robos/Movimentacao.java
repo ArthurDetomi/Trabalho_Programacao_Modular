@@ -1,4 +1,4 @@
-package robos;
+package edu.ufsj.trabalho.robos;
 
 public enum Movimentacao {
 

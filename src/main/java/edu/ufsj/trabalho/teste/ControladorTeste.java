@@ -1,12 +1,11 @@
-package teste;
+package edu.ufsj.trabalho.teste;
 
-import controladores.Controlador;
-import robos.Direcoes;
-import robos.Movimentacao;
-import robos.Robo;
-import terrenos.Celula;
-import terrenos.Posicao;
-import terrenos.Terreno;
+import edu.ufsj.trabalho.controladores.Controlador;
+import edu.ufsj.trabalho.robos.Direcoes;
+import edu.ufsj.trabalho.robos.Robo;
+import edu.ufsj.trabalho.terrenos.Celula;
+import edu.ufsj.trabalho.terrenos.Posicao;
+import edu.ufsj.trabalho.terrenos.Terreno;
 
 public class ControladorTeste {
 

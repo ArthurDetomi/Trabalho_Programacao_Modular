@@ -1,4 +1,4 @@
-package terrenos;
+package edu.ufsj.trabalho.terrenos;
 
 public class Terreno {
 

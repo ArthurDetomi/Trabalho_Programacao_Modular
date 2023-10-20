@@ -1,10 +1,10 @@
-package robos;
+package edu.ufsj.trabalho.robos;
 
-import controladores.Controlador;
-import terrenos.Celula;
-import terrenos.CelulaAdjacente;
-import terrenos.Posicao;
-import terrenos.Terreno;
+import edu.ufsj.trabalho.controladores.Controlador;
+import edu.ufsj.trabalho.terrenos.Celula;
+import edu.ufsj.trabalho.terrenos.CelulaAdjacente;
+import edu.ufsj.trabalho.terrenos.Posicao;
+import edu.ufsj.trabalho.terrenos.Terreno;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;

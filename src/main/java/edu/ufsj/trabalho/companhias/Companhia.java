@@ -1,7 +1,7 @@
-package companhias;
+package edu.ufsj.trabalho.companhias;
 
-import controladores.Controlador;
-import robos.Robo;
+import edu.ufsj.trabalho.controladores.Controlador;
+import edu.ufsj.trabalho.robos.Robo;
 
 import java.util.ArrayList;
 import java.util.List;

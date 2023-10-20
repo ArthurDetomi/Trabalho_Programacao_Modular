@@ -1,14 +1,10 @@
-package controladores;
+package edu.ufsj.trabalho.controladores;
 
-import robos.Direcoes;
-import robos.Movimentacao;
-import robos.Robo;
-import terrenos.CelulaAdjacente;
-import terrenos.Posicao;
-import terrenos.Terreno;
-
-import java.util.Iterator;
-import java.util.Map;
+import edu.ufsj.trabalho.robos.Movimentacao;
+import edu.ufsj.trabalho.robos.Robo;
+import edu.ufsj.trabalho.terrenos.CelulaAdjacente;
+import edu.ufsj.trabalho.terrenos.Posicao;
+import edu.ufsj.trabalho.terrenos.Terreno;
 
 public class Controlador {
 

@@ -1,6 +1,6 @@
-package terrenos;
+package edu.ufsj.trabalho.terrenos;
 
-import robos.Direcoes;
+import edu.ufsj.trabalho.robos.Direcoes;
 
 public class CelulaAdjacente {
 
