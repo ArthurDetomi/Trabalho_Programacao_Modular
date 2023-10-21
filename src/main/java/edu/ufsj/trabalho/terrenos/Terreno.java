@@ -38,10 +38,10 @@ public class Terreno {
     }
 
     public void imprimirConcentracaoHelioTerreno() {
-        for (int j = quantidadeLinhas - 1; j >= 0; j--) {
-            for (int i = 0; i < quantidadeColunas; i++) {
-                System.out.printf(String.format("(%.2f)", terreno[j][i].getConcentracaoHelio()));
-                if (terreno[j][i].isTemRobo()) {
+        for (int i = 0; i < quantidadeLinhas; i++) {
+            for (int j = 0; j < quantidadeColunas; j++) {
+                System.out.printf(String.format("(%.2f)", terreno[i][j].getConcentracaoHelio()));
+                if (terreno[i][j].isTemRobo()) {
                     System.out.print(":R");
                 }
             }
