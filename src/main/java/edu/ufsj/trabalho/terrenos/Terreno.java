@@ -37,6 +37,15 @@ public class Terreno {
         }
     }
 
+    public void imprimirConcentracaoHelioTerreno() {
+        for (int j = quantidadeLinhas -1; j >= 0; j--) {
+            for (int i = 0; i < quantidadeColunas; i++) {
+                System.out.printf("(%.2f)", terreno[j][i].getConcentracaoHelio());
+            }
+            System.out.println();
+        }
+    }
+
     private boolean posicaoNaoEhValida(Posicao posicao) {
         return posicao.getColuna() < 0 || posicao.getColuna() >= quantidadeColunas ||
                 posicao.getLinha() < 0 || posicao.getLinha() >= quantidadeLinhas;
