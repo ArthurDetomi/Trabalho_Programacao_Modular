@@ -10,8 +10,6 @@ public class Controlador {
 
     private Robo robo;
 
-    public boolean podeRealizarAcao;
-
     public Controlador() {
 
     }
@@ -30,13 +28,7 @@ public class Controlador {
     }
 
     public synchronized boolean realizarSonda() {
-        podeRealizarAcao = false;
-
-        boolean resultado = robo.coletarHelio();
-
-        podeRealizarAcao = true;
-
-        return resultado;
+        return robo.coletarHelio();
     }
 
     public Posicao getPosicaoAtualRobo() {
@@ -56,22 +48,13 @@ public class Controlador {
     }
 
     public boolean movimentarRobo(Movimentacao movimento, Terreno terreno) {
-        if (!podeRealizarAcao) {
-            return false;
-        }
-        podeRealizarAcao = false;
-
-        boolean resultado = robo.movimentar(movimento, terreno);
-
-        podeRealizarAcao = true;
-
-        return resultado;
+        return robo.movimentar(movimento, terreno);
     }
 
     public void iniciarEstrategia(Terreno terreno) {
-        double concentracao = robo.getConcentracaoHelioPosicaoAtual();
+        double concentracao = getConcentracaoHelioPosicaoAtualRobo();
         if (concentracao > 0.2d) {
-            boolean resultadoColeta = robo.coletarHelio();
+            boolean resultadoColeta = realizarSonda();
             if (!resultadoColeta) {
                 System.out.println("tempo gasto desde o inicio coleta = " + robo.getTempoDecorridoSegundos());
             } else {
@@ -79,14 +62,14 @@ public class Controlador {
                 System.out.println(robo);
             }
         } else {
-            CelulaAdjacente proximaCelula = robo.getRugosidadeRegiao(terreno);
+            CelulaAdjacente proximaCelula = getRugosidadeRegiao(terreno);
             if (proximaCelula.isVazia() || proximaCelula.isTemRobo()) {
                 robo.movimentar(Movimentacao.DIREITA, terreno);
 
                 System.out.println("Robo andou para direita");
                 System.out.println(robo);
             } else if (proximaCelula.getRugosidade() < 0.9) {
-                boolean resultado = robo.movimentar(Movimentacao.ANDA, terreno);
+                boolean resultado = movimentarRobo(Movimentacao.ANDA, terreno);
                 if (!resultado) {
                     System.out.println("tempo gasto desde o inicio comando movimento = " + robo.getTempoDecorridoSegundos());
                 } else {

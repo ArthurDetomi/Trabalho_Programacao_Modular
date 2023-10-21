@@ -21,7 +21,7 @@ public class Terreno {
     public void inicializarTerreno() {
         terreno = new Celula[quantidadeLinhas][quantidadeColunas];
 
-        for (int j = quantidadeLinhas -1; j >= 0; j--) { // o (0,0) tem que ser a esquerda inferior e tem que see(x,y), e estava (y,x)
+        for (int j = quantidadeLinhas - 1; j >= 0; j--) { // o (0,0) tem que ser a esquerda inferior e tem que see(x,y), e estava (y,x)
             for (int i = 0; i < quantidadeColunas; i++) {
                 terreno[j][i] = new Celula(new Posicao(j, i));
             }
@@ -29,7 +29,7 @@ public class Terreno {
     }
 
     public void imprimirTerreno() {
-        for (int j = quantidadeLinhas -1; j >= 0; j--) {
+        for (int j = quantidadeLinhas - 1; j >= 0; j--) {
             for (int i = 0; i < quantidadeColunas; i++) {
                 System.out.print(terreno[j][i]);
             }
@@ -38,9 +38,12 @@ public class Terreno {
     }
 
     public void imprimirConcentracaoHelioTerreno() {
-        for (int j = quantidadeLinhas -1; j >= 0; j--) {
+        for (int j = quantidadeLinhas - 1; j >= 0; j--) {
             for (int i = 0; i < quantidadeColunas; i++) {
-                System.out.printf("(%.2f)", terreno[j][i].getConcentracaoHelio());
+                System.out.printf(String.format("(%.2f)", terreno[j][i].getConcentracaoHelio()));
+                if (terreno[j][i].isTemRobo()) {
+                    System.out.print(":R");
+                }
             }
             System.out.println();
         }

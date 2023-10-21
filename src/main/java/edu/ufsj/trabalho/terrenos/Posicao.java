@@ -25,5 +25,5 @@ public class Posicao {
     public void setLinha(int linha) {
         this.linha = linha;
     }
-    
+
 }
