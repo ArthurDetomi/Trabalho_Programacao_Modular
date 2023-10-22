@@ -47,6 +47,20 @@ public class Robo {
                 '}';
     }
 
+    public void imprimirDadosRobo(){
+        System.out.printf("Robo:[id: %d | Posição Atual: (%d,%d) | Compartimento de Hélio: %.2f]\n\n",
+                id,
+                celulaAtual.getPosicao().getColuna(),
+                celulaAtual.getPosicao().getLinha(),
+                quantidadeColetadaHelio);
+    }
+
+    public void imprimirDadosRoboRelatorio(){
+        System.out.printf("Robo:[id: %d | Compartimento de Hélio: %.2f]\n",
+                id,
+                quantidadeColetadaHelio);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -218,7 +232,7 @@ public class Robo {
         throw new IllegalArgumentException("Rugosidade vindo nulo");
     }
 
-    public long getTempoDecorridoSegundos() {
+    public int getTempoDecorridoSegundos() {
         return tempoGasto;
     }
 
@@ -232,6 +246,14 @@ public class Robo {
             return;
         }
         this.controlador = controlador;
+    }
+
+    public int tempoTotalColeta(){
+        return (int) getTempoDuracaoColeta() - 1;
+    }
+
+    public int tempoTotalMovimento(Terreno terreno){
+        return (int) getTempoDuracaoMovimento(terreno) - 1;
     }
 
     public void setDirecaoAtual(Direcoes direcaoAtual) {
