@@ -56,24 +56,28 @@ public class Controlador {
         if (concentracao > 0.2d) {
             boolean resultadoColeta = realizarSonda();
             if (!resultadoColeta) {
-                System.out.println("tempo gasto desde o inicio coleta = " + robo.getTempoDecorridoSegundos());
+                if(robo.getTempoDecorridoSegundos() == robo.tempoTotalColeta()){
+                    System.out.println("[Prospecção iniciada]\n\n[Tempo de coleta: " + (robo.getTempoDecorridoSegundos() + 1)+ " segundos]\n");
+                }
             } else {
-                System.out.println("Helio foi coletado");
-                System.out.println(robo);
+                System.out.println("[Helio coletado]\n");
+                robo.imprimirDadosRobo();
             }
         } else {
             CelulaAdjacente proximaCelula = getRugosidadeRegiao(terreno);
             if (proximaCelula.isVazia() || proximaCelula.isTemRobo()) {
+
                 robo.movimentar(Movimentacao.DIREITA, terreno);
 
-                System.out.println("Robo andou para direita");
-                System.out.println(robo);
             } else if (proximaCelula.getRugosidade() < 0.9) {
+
                 boolean resultado = movimentarRobo(Movimentacao.ANDA, terreno);
                 if (!resultado) {
-                    System.out.println("tempo gasto desde o inicio comando movimento = " + robo.getTempoDecorridoSegundos());
+                    if(robo.getTempoDecorridoSegundos() == robo.tempoTotalMovimento(terreno)){
+                        System.out.println("[Direção Atual: " + robo.getDirecaoAtual() + "]\n\n[tempo do comando de movimento: " + (robo.getTempoDecorridoSegundos() + 1) + " segundos]\n");
+                    }
                 } else {
-                    System.out.println(robo);
+                    robo.imprimirDadosRobo();
                 }
             }
         }
