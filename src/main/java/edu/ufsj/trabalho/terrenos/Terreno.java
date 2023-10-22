@@ -37,15 +37,21 @@ public class Terreno {
         }
     }
 
-    public void imprimirConcentracaoHelioTerreno() {
+    public void imprimirDashboard() {
         for (int i = 0; i < quantidadeLinhas; i++) {
             for (int j = 0; j < quantidadeColunas; j++) {
-                System.out.printf(String.format("(%.2f)", terreno[i][j].getConcentracaoHelio()));
+
+                System.out.printf(String.format("\t[CH:%.2f|RT:%.2f|COE:%.2f]",
+                        terreno[i][j].getConcentracaoHelio(),
+                        terreno[i][j].getRugosidadeTerreno(),
+                        terreno[i][j].getCoeficienteAleatorio()));
+
                 if (terreno[i][j].isTemRobo()) {
-                    System.out.print(":R");
+                    System.out.print("(R)");
                 }
+
             }
-            System.out.println();
+            System.out.println("\n");
         }
     }
 
@@ -58,7 +64,7 @@ public class Terreno {
         if (posicaoNaoEhValida(posicao)) {
             return new Celula();
         }
-        return terreno[posicao.getColuna()][posicao.getLinha()];
+        return terreno[posicao.getLinha()][posicao.getColuna()];
     }
 
     public int getQuantidadeLinhas() {
