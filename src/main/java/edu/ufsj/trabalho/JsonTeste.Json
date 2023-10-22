@@ -1,0 +1,11 @@
+{
+  "terreno": {
+    "quantidadeLinhas": 3,
+    "quantidadeColunas": 3
+  },
+
+  "equipe": {
+    "nome": "equipe1",
+    "quantidadeRobos": 5
+  }
+}

@@ -11,6 +11,7 @@ public class Companhia {
     private String nome;
 
     private final Controlador controladorEstrategia;
+    private int quantidadeRobos;
 
     public Companhia(String nome, Controlador controladorEstrategia) {
         this.nome = nome;
@@ -41,5 +42,17 @@ public class Companhia {
 
     public Controlador getControladorEstrategia() {
         return controladorEstrategia;
+    }
+
+    public int getQuantidadeRobos() {
+        return quantidadeRobos;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("NOME DA EQUIPE: %s, ESTRATEGIA: %s, QUANTIDADE DE ROBOS: %d\n",
+                getNome(),
+                getControladorEstrategia(),
+                getQuantidadeRobos());
     }
 }
