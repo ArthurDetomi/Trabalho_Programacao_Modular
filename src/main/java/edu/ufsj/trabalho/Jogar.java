@@ -31,6 +31,23 @@ public class Jogar {
 
             duracaoTotal--;
         }
+        */
+        Terreno terreno = new Terreno(4, 4);
+        Controlador controlador1 = new Controlador();
+        Companhia companhia1 = new Companhia("Alfa", controlador1,
+                2, terreno);
+
+        Controlador controlador2 = new Controlador();
+        Companhia companhia2 = new Companhia("Alfa", controlador2,
+                2, terreno);
+
+        int duracaoTotal = 180;
+
+
+        System.out.println(companhia1.getTotalHelioProspectado());
+        System.out.println(companhia2.getTotalHelioProspectado());
+        System.out.println("Equipe Vencedora:");
+
     }
 
 }
