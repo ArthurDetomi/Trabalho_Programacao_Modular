@@ -12,7 +12,6 @@ public class Testeleitor {
     public static void main (String[] args){
         LeitorJson leitor = new LeitorJson("src/main/java/edu/ufsj/trabalho/JsonTeste.Json");
         Terreno terreno = leitor.getTerreno();
-        terreno.inicializarTerreno();
         Companhia equipe = leitor.getCompanhias();
 
         Controlador controlador = new Controlador();

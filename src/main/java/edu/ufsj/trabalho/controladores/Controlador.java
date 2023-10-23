@@ -1,5 +1,6 @@
 package edu.ufsj.trabalho.controladores;
 
+import edu.ufsj.trabalho.robos.Direcoes;
 import edu.ufsj.trabalho.robos.Movimentacao;
 import edu.ufsj.trabalho.robos.Robo;
 import edu.ufsj.trabalho.terrenos.CelulaAdjacente;
@@ -10,8 +11,14 @@ public class Controlador {
 
     private Robo robo;
 
+    protected final Direcoes direcaoInicial = Direcoes.DIREITA;
+
     public Controlador() {
 
+    }
+
+    public Direcoes getDirecaoInicial() {
+        return direcaoInicial;
     }
 
     public Robo getRobo() {
@@ -29,6 +36,10 @@ public class Controlador {
 
     public synchronized boolean realizarSonda() {
         return robo.coletarHelio();
+    }
+
+    public double getQuantidadeTotalHelioColetado() {
+        return this.robo.getQuantidadeColetadaHelio();
     }
 
     public Posicao getPosicaoAtualRobo() {
@@ -51,13 +62,20 @@ public class Controlador {
         return robo.movimentar(movimento, terreno);
     }
 
+    private void sinalizarRoboTempoPassado() {
+        robo.sinalizarTempoPassado();
+    }
+
     public void iniciarEstrategia(Terreno terreno) {
+        sinalizarRoboTempoPassado();
         double concentracao = getConcentracaoHelioPosicaoAtualRobo();
         if (concentracao > 0.2d) {
             boolean resultadoColeta = realizarSonda();
             if (!resultadoColeta) {
                 if(robo.getTempoDecorridoSegundos() == robo.tempoTotalColeta()){
-                    System.out.println("[Prospecção iniciada Robo: " + robo.getId() + "]\n\n[Tempo de coleta: " + (robo.getTempoDecorridoSegundos() + 1)+ " segundos]\n");
+                    System.out.println("[Prospecção iniciada Robo: " + robo.getId() + "]\n\n" +
+                            "[Tempo de coleta: " + (robo.getTempoDecorridoSegundos() + 1)+
+                            " segundos]\n");
                 }
             } else {
                 System.out.println("[Helio coletado]\n");
@@ -74,7 +92,8 @@ public class Controlador {
                 boolean resultado = movimentarRobo(Movimentacao.ANDA, terreno);
                 if (!resultado) {
                     if(robo.getTempoDecorridoSegundos() == robo.tempoTotalMovimento(terreno)){
-                        System.out.println("[Direção Atual Robo: " + robo.getId() + ":"+ robo.getDirecaoAtual() + "]\n\n[tempo do comando de movimento: " + (robo.getTempoDecorridoSegundos() + 1) + " segundos]\n");
+                        System.out.println("[Direção Atual Robo: " + robo.getId() + ":"+ robo.getDirecaoAtual() + "]\n" +
+                                "\n[tempo do comando de movimento: " + (robo.getTempoDecorridoSegundos() + 1) + " segundos]\n");
                     }
                 } else {
                     robo.imprimirDadosRobo();

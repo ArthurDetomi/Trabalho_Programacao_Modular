@@ -18,7 +18,7 @@ public class Terreno {
         inicializarTerreno();
     }
 
-    public void inicializarTerreno() {
+    private void inicializarTerreno() {
         terreno = new Celula[quantidadeLinhas][quantidadeColunas];
 
         for (int j = quantidadeLinhas - 1; j >= 0; j--) { // o (0,0) tem que ser a esquerda inferior e tem que see(x,y), e estava (y,x)

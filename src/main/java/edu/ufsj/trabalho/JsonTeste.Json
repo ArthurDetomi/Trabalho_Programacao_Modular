@@ -3,9 +3,20 @@
     "quantidadeLinhas": 3,
     "quantidadeColunas": 3
   },
-
-  "equipe": {
-    "nome": "equipe1",
-    "quantidadeRobos": 5
-  }
+  "equipes": [
+    {
+      "nome": "equipe1",
+      "quantidadeRobos": 5,
+      "controlador": {
+        "nome": "controlador1"
+      }
+    },
+    {
+      "nome": "equipe2",
+      "quantidadeRobos": 5,
+      "controlador": {
+        "nome": "controlador2"
+      }
+    }
+  ]
 }

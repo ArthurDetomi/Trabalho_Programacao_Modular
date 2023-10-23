@@ -18,7 +18,6 @@ public class TerrenoTeste {
         try {
             FileReader leitor = new FileReader(json);
             Terreno terreno = gson.fromJson(leitor, Terreno.class);
-            terreno.inicializarTerreno();
             terreno.imprimirTerreno();
         } catch (FileNotFoundException e) {
             System.out.printf("ERRO DE LEITURA");

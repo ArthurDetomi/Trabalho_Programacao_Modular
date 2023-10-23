@@ -35,6 +35,19 @@ public class Robo {
         this.celulaAtual.setTemRobo(true);
     }
 
+    public Robo(Controlador controlador, Celula celulaPouso) {
+        if (celulaPouso == null || celulaPouso.isTemRobo()) {
+            throw new IllegalArgumentException("Celula de pouso inválida");
+        }
+
+        this.id = idGenerator.getAndIncrement();
+        this.controlador = controlador;
+        controlador.setRobo(this);
+        this.celulaAtual = celulaPouso;
+        this.direcaoAtual = controlador.getDirecaoInicial();
+        this.celulaAtual.setTemRobo(true);
+    }
+
     @Override
     public String toString() {
         return "Robo{" +
@@ -264,4 +277,7 @@ public class Robo {
         this.celulaAtual = celulaAtual;
     }
 
+    public Controlador getControlador() {
+        return controlador;
+    }
 }
