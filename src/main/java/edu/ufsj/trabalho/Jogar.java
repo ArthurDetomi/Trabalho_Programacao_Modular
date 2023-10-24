@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Jogar {
+    private static final String CAMINHO_ARQUIVO_ENTRADA = "src/main/java/edu/ufsj/trabalho/input/input.json";
 
     public static void main(String[] args) {
-        LeitorJson leitorJson =
-                new LeitorJson("src/main/java/edu/ufsj/trabalho/input/input.json");
+        LeitorJson leitorJson = new LeitorJson(CAMINHO_ARQUIVO_ENTRADA);
 
         EstadoJogo estadoJogo = leitorJson.getEstadoDoJogo();
 
