@@ -10,6 +10,8 @@ public class ControladorUtils {
                 return new ControladorSegundo();
             case "controlador3":
                 return new ControladorTerceiro();
+            case "controlador4":
+                return new ControladorQuarto();
         }
         throw new IllegalArgumentException("Controlador enviado inválido");
     }

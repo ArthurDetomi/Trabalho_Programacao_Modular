@@ -1,6 +1,7 @@
 package edu.ufsj.trabalho.api.general;
 
 import edu.ufsj.trabalho.api.companhias.Companhia;
+import edu.ufsj.trabalho.api.companhias.CompanhiaComparator;
 
 import java.util.List;
 
@@ -24,6 +25,14 @@ public class JogoControlador {
             companhiasParticipantes.forEach(Companhia::jogar);
             duracaoTotal--;
         }
+
+        Companhia companhiaGanhadora = getCompanhiaGanhadora();
+        System.out.println("Companhia ganhadora " + companhiaGanhadora.getNome() +
+                " parabéns!!");
+    }
+
+    private Companhia getCompanhiaGanhadora() {
+        return companhiasParticipantes.stream().max(CompanhiaComparator.porTotalHelioProspectado).get();
     }
 
 }

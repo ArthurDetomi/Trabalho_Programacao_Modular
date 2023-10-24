@@ -10,7 +10,9 @@ import edu.ufsj.trabalho.api.leitor.CompanhiaLeitura;
 import edu.ufsj.trabalho.api.terrenos.Terreno;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class Companhia {
 
@@ -40,6 +42,19 @@ public class Companhia {
                 .getControladorNome(companhiaLeitura.getControlador());
         this.quantidadeRobos = companhiaLeitura.getQuantidadeRobos();
         criarRobos();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Companhia companhia = (Companhia) o;
+        return Objects.equals(nome, companhia.nome);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nome);
     }
 
     private void criarRobos() {
@@ -77,7 +92,6 @@ public class Companhia {
         }
         return totalHelioProspectado;
     }
-
     public String getNome() {
         return nome;
     }
