@@ -81,7 +81,7 @@ public class Controlador {
         if (concentracao > concentracaoMinimaParaColetar) {
             boolean resultadoColeta = realizarSonda();
             if (!resultadoColeta) {
-                gravadorDeArquivo.adicionarRegistro("[Prospecção iniciada Robo: " + robo.getId() + "]\n\n" +
+                gravadorDeArquivo.adicionarRegistro("[Prospecção iniciada Robo]\n" +
                         "[Tempo de coleta: " + (robo.getTempoDecorridoSegundos() + 1) +
                         " segundos]");
             } else {
@@ -103,8 +103,8 @@ public class Controlador {
         if (proximaCelula.getRugosidade() < rugosidadeMaximaParaMovimentar) {
             boolean resultado = movimentarRobo(Movimentacao.ANDA, terreno);
             if (!resultado) {
-                gravadorDeArquivo.adicionarRegistro("[Direção Atual Robo: " + robo.getId() + ":" +
-                        robo.getDirecaoAtual() + "]\n" +
+                gravadorDeArquivo.adicionarRegistro("[Direção Atual Robo " + "direcao atual = "
+                        + robo.getDirecaoAtual() + "]\n" +
                         "\n[tempo do comando de movimento: " +
                         (robo.getTempoDecorridoSegundos() + 1) + " segundos]");
 

@@ -10,9 +10,6 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Robo {
-
-    private static final AtomicInteger idGenerator = new AtomicInteger(1);
-    private final Integer id;
     private Celula celulaAtual;
     private Controlador controlador;
     private Direcoes direcaoAtual;
@@ -27,7 +24,6 @@ public class Robo {
             throw new IllegalArgumentException("Celula de pouso inválida");
         }
 
-        this.id = idGenerator.incrementAndGet();
         this.controlador = controlador;
         controlador.setRobo(this);
         this.celulaAtual = celulaPouso;
@@ -40,7 +36,6 @@ public class Robo {
             throw new IllegalArgumentException("Celula de pouso inválida");
         }
 
-        this.id = idGenerator.getAndIncrement();
         this.controlador = controlador;
         controlador.setRobo(this);
         this.celulaAtual = celulaPouso;
@@ -51,8 +46,7 @@ public class Robo {
     @Override
     public String toString() {
         return "Robo{" +
-                "id = " + id +
-                ", celulaAtual=" + celulaAtual +
+                " celulaAtual=" + celulaAtual +
                 ", direcao_atual=" + direcaoAtual +
                 ", quantidade_coletada_helio=" + quantidadeColetadaHelio +
                 ", segundoDeInicio=" + segundoInicioColeta +
@@ -61,28 +55,10 @@ public class Robo {
     }
 
     public String imprimirDadosRobo(){
-        return String.format("Robo:[id: %d | Posição Atual: (%d,%d) | Compartimento de Hélio: %.2f]",
-                id,
+        return String.format("Robo:[Posição Atual: (%d,%d) | Compartimento de Hélio: %.2f]",
                 celulaAtual.getPosicao().getColuna(),
                 celulaAtual.getPosicao().getLinha(),
                 quantidadeColetadaHelio);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Robo robo = (Robo) o;
-        return Objects.equals(id, robo.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
-    public Integer getId() {
-        return id;
     }
 
     public Posicao getPosicaoAtual() {
