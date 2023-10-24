@@ -1,11 +1,15 @@
 package edu.ufsj.trabalho.controladores;
 
+import edu.ufsj.trabalho.robos.Direcoes;
 import edu.ufsj.trabalho.robos.Movimentacao;
 import edu.ufsj.trabalho.robos.Robo;
 import edu.ufsj.trabalho.terrenos.CelulaAdjacente;
 import edu.ufsj.trabalho.terrenos.Terreno;
 
 public class ControladorSegundo extends Controlador {
+
+
+    protected  Direcoes direcaoInicial = Direcoes.CIMA;
 
     @Override
     public void iniciarEstrategia(Terreno terreno) {
@@ -27,9 +31,9 @@ public class ControladorSegundo extends Controlador {
             CelulaAdjacente proximaCelula = getRugosidadeRegiao(terreno);
             if (proximaCelula.isVazia() || proximaCelula.isTemRobo()) {
 
-                robo.movimentar(Movimentacao.DIREITA, terreno);
+                robo.movimentar(Movimentacao.ESQUERDA, terreno);
 
-            } else if (proximaCelula.getRugosidade() < 0.9d) {
+            } else if (proximaCelula.getRugosidade() < 0.5d) {
 
                 boolean resultado = movimentarRobo(Movimentacao.ANDA, terreno);
                 if (!resultado) {
