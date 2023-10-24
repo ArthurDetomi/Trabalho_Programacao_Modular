@@ -1,9 +1,6 @@
 package edu.ufsj.trabalho.robos;
 
 import edu.ufsj.trabalho.controladores.Controlador;
-import edu.ufsj.trabalho.robos.Direcoes;
-import edu.ufsj.trabalho.robos.Movimentacao;
-import edu.ufsj.trabalho.robos.Robo;
 import edu.ufsj.trabalho.terrenos.Celula;
 import edu.ufsj.trabalho.terrenos.Posicao;
 import edu.ufsj.trabalho.terrenos.Terreno;

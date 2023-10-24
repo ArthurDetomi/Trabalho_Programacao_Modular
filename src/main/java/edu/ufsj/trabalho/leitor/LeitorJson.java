@@ -28,8 +28,6 @@ public class LeitorJson {
             return null;
         }
     }
-    public Companhia getCompanhias(){return estadoJogo.getCompanhia();}
-    public Terreno getTerreno(){return estadoJogo.getTerreno();}
 
 }
 

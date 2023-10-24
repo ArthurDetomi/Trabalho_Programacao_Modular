@@ -2,8 +2,8 @@ package edu.ufsj.trabalho.terrenos;
 
 public class Terreno {
 
-    private final int quantidadeLinhas;
-    private final int quantidadeColunas;
+    private int quantidadeLinhas;
+    private int quantidadeColunas;
 
     private Celula[][] terreno;
 
@@ -75,5 +75,11 @@ public class Terreno {
         return quantidadeColunas;
     }
 
+    public void setQuantidadeLinhas(int quantidadeLinhas) {
+        this.quantidadeLinhas = quantidadeLinhas;
+    }
 
+    public void setQuantidadeColunas(int quantidadeColunas) {
+        this.quantidadeColunas = quantidadeColunas;
+    }
 }

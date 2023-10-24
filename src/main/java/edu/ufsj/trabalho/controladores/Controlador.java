@@ -9,7 +9,7 @@ import edu.ufsj.trabalho.terrenos.Terreno;
 
 public class Controlador {
 
-    private Robo robo;
+    protected Robo robo;
 
     protected final Direcoes direcaoInicial = Direcoes.DIREITA;
 
@@ -62,7 +62,7 @@ public class Controlador {
         return robo.movimentar(movimento, terreno);
     }
 
-    private void sinalizarRoboTempoPassado() {
+    protected void sinalizarRoboTempoPassado() {
         robo.sinalizarTempoPassado();
     }
 
