@@ -15,7 +15,7 @@ public class ControladorQuarto extends Controlador {
 
     public ControladorQuarto(String companhiaNome) {
         super(companhiaNome);
-        concentracaoMinimaParaColetar = 0.25d;
+        concentracaoMinimaParaColetar = 0.2d;
         rugosidadeMaximaParaMovimentar = 0.7d;
     }
 
