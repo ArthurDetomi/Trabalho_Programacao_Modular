@@ -1,4 +1,4 @@
-package edu.ufsj.trabalho.terrenos;
+package edu.ufsj.trabalho.api.terrenos;
 
 import java.util.Random;
 

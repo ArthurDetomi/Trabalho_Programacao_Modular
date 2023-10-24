@@ -1,6 +1,4 @@
-package edu.ufsj.trabalho.utils;
-
-import edu.ufsj.trabalho.terrenos.Posicao;
+package edu.ufsj.trabalho.api.utils;
 
 import java.util.Random;
 

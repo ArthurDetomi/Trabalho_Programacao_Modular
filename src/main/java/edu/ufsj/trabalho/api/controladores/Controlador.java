@@ -1,17 +1,17 @@
-package edu.ufsj.trabalho.controladores;
+package edu.ufsj.trabalho.api.controladores;
 
-import edu.ufsj.trabalho.robos.Direcoes;
-import edu.ufsj.trabalho.robos.Movimentacao;
-import edu.ufsj.trabalho.robos.Robo;
-import edu.ufsj.trabalho.terrenos.CelulaAdjacente;
-import edu.ufsj.trabalho.terrenos.Posicao;
-import edu.ufsj.trabalho.terrenos.Terreno;
+import edu.ufsj.trabalho.api.robos.Direcoes;
+import edu.ufsj.trabalho.api.robos.Robo;
+import edu.ufsj.trabalho.api.terrenos.CelulaAdjacente;
+import edu.ufsj.trabalho.api.terrenos.Posicao;
+import edu.ufsj.trabalho.api.terrenos.Terreno;
+import edu.ufsj.trabalho.api.robos.Movimentacao;
 
 public class Controlador {
 
     protected Robo robo;
 
-    protected  Direcoes direcaoInicial = Direcoes.DIREITA;
+    protected Direcoes direcaoInicial = Direcoes.DIREITA;
 
     public Controlador() {
 

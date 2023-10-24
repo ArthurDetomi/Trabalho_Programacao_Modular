@@ -1,10 +1,10 @@
-package edu.ufsj.trabalho.robos;
+package edu.ufsj.trabalho.api.robos;
 
-import edu.ufsj.trabalho.controladores.Controlador;
-import edu.ufsj.trabalho.terrenos.Celula;
-import edu.ufsj.trabalho.terrenos.CelulaAdjacente;
-import edu.ufsj.trabalho.terrenos.Posicao;
-import edu.ufsj.trabalho.terrenos.Terreno;
+import edu.ufsj.trabalho.api.controladores.Controlador;
+import edu.ufsj.trabalho.api.terrenos.Celula;
+import edu.ufsj.trabalho.api.terrenos.CelulaAdjacente;
+import edu.ufsj.trabalho.api.terrenos.Posicao;
+import edu.ufsj.trabalho.api.terrenos.Terreno;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -1,6 +1,6 @@
-package edu.ufsj.trabalho.general;
+package edu.ufsj.trabalho.api.general;
 
-import edu.ufsj.trabalho.companhias.Companhia;
+import edu.ufsj.trabalho.api.companhias.Companhia;
 
 import java.util.List;
 

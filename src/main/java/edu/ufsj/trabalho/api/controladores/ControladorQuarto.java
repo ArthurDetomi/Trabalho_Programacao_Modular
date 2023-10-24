@@ -1,9 +1,9 @@
-package edu.ufsj.trabalho.controladores;
+package edu.ufsj.trabalho.api.controladores;
 
-import edu.ufsj.trabalho.robos.Direcoes;
-import edu.ufsj.trabalho.robos.Movimentacao;
-import edu.ufsj.trabalho.terrenos.CelulaAdjacente;
-import edu.ufsj.trabalho.terrenos.Terreno;
+import edu.ufsj.trabalho.api.robos.Direcoes;
+import edu.ufsj.trabalho.api.robos.Movimentacao;
+import edu.ufsj.trabalho.api.terrenos.CelulaAdjacente;
+import edu.ufsj.trabalho.api.terrenos.Terreno;
 
 public class ControladorQuarto extends Controlador {
 

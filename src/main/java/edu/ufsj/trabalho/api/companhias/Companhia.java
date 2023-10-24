@@ -1,11 +1,13 @@
-package edu.ufsj.trabalho.companhias;
+package edu.ufsj.trabalho.api.companhias;
 
-import edu.ufsj.trabalho.controladores.Controlador;
-import edu.ufsj.trabalho.robos.Robo;
-import edu.ufsj.trabalho.terrenos.Celula;
-import edu.ufsj.trabalho.terrenos.Posicao;
-import edu.ufsj.trabalho.terrenos.Terreno;
-import edu.ufsj.trabalho.utils.RandomUtil;
+import edu.ufsj.trabalho.api.controladores.ControladorUtils;
+import edu.ufsj.trabalho.api.robos.Robo;
+import edu.ufsj.trabalho.api.terrenos.Celula;
+import edu.ufsj.trabalho.api.terrenos.Posicao;
+import edu.ufsj.trabalho.api.utils.RandomUtil;
+import edu.ufsj.trabalho.api.controladores.Controlador;
+import edu.ufsj.trabalho.api.leitor.CompanhiaLeitura;
+import edu.ufsj.trabalho.api.terrenos.Terreno;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +30,15 @@ public class Companhia {
         this.controladorEstrategia = controladorEstrategia;
         this.quantidadeRobos = quantidadeRobos;
         this.terreno = terreno;
+        criarRobos();
+    }
+
+    public Companhia(CompanhiaLeitura companhiaLeitura, Terreno terreno) {
+        this.nome = companhiaLeitura.getNome();
+        this.terreno = terreno;
+        this.controladorEstrategia = ControladorUtils
+                .getControladorNome(companhiaLeitura.getControlador());
+        this.quantidadeRobos = companhiaLeitura.getQuantidadeRobos();
         criarRobos();
     }
 

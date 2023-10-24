@@ -2,7 +2,7 @@ package edu.ufsj.trabalho.terrenos;
 
 
 import com.google.gson.Gson;
-import edu.ufsj.trabalho.terrenos.Terreno;
+import edu.ufsj.trabalho.api.terrenos.Terreno;
 
 import java.io.File;
 import java.io.FileNotFoundException;

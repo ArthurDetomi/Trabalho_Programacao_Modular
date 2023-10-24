@@ -1,20 +1,20 @@
-package edu.ufsj.trabalho.controladores;
+package edu.ufsj.trabalho.api.controladores;
 
-import edu.ufsj.trabalho.robos.Direcoes;
-import edu.ufsj.trabalho.robos.Movimentacao;
-import edu.ufsj.trabalho.robos.Robo;
-import edu.ufsj.trabalho.terrenos.CelulaAdjacente;
-import edu.ufsj.trabalho.terrenos.Terreno;
+import edu.ufsj.trabalho.api.robos.Direcoes;
+import edu.ufsj.trabalho.api.terrenos.CelulaAdjacente;
+import edu.ufsj.trabalho.api.terrenos.Terreno;
+import edu.ufsj.trabalho.api.robos.Movimentacao;
 
-public class ControladorTerceiro extends Controlador {
+public class ControladorSegundo extends Controlador {
 
-    protected Direcoes direcaoInicial = Direcoes.BAIXO;
+
+    protected Direcoes direcaoInicial = Direcoes.CIMA;
 
     @Override
     public void iniciarEstrategia(Terreno terreno) {
         sinalizarRoboTempoPassado();
         double concentracao = getConcentracaoHelioPosicaoAtualRobo();
-        if (concentracao > 0.4d) {
+        if (concentracao > 0.3d) {
             boolean resultadoColeta = realizarSonda();
             if (!resultadoColeta) {
                 if(robo.getTempoDecorridoSegundos() == robo.tempoTotalColeta()){
@@ -32,7 +32,7 @@ public class ControladorTerceiro extends Controlador {
 
                 robo.movimentar(Movimentacao.ESQUERDA, terreno);
 
-            } else if (proximaCelula.getRugosidade() < 0.6d) {
+            } else if (proximaCelula.getRugosidade() < 0.5d) {
 
                 boolean resultado = movimentarRobo(Movimentacao.ANDA, terreno);
                 if (!resultado) {

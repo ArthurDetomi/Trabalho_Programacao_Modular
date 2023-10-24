@@ -1,4 +1,4 @@
-package edu.ufsj.trabalho.robos;
+package edu.ufsj.trabalho.api.robos;
 
 public enum Direcoes {
 

@@ -1,4 +1,6 @@
-package edu.ufsj.trabalho.terrenos;
+package edu.ufsj.trabalho.api.terrenos;
+
+import edu.ufsj.trabalho.api.leitor.TerrenoLeitura;
 
 public class Terreno {
 
@@ -10,6 +12,17 @@ public class Terreno {
     public Terreno(int quantidadeLinhas, int quantidadeColunas) {
         this.quantidadeLinhas = quantidadeLinhas;
         this.quantidadeColunas = quantidadeColunas;
+
+        if (quantidadeColunas <= 0 || quantidadeLinhas <= 0) {
+            throw new IllegalArgumentException("Quantidade de linhas e colunas invalidas");
+        }
+
+        inicializarTerreno();
+    }
+
+    public Terreno(TerrenoLeitura terrenoLeitura) {
+        this.quantidadeLinhas = terrenoLeitura.getQuantidadeLinhas();
+        this.quantidadeColunas = terrenoLeitura.getQuantidadeColunas();
 
         if (quantidadeColunas <= 0 || quantidadeLinhas <= 0) {
             throw new IllegalArgumentException("Quantidade de linhas e colunas invalidas");

@@ -1,9 +1,12 @@
 package edu.ufsj.trabalho.robos;
 
-import edu.ufsj.trabalho.controladores.Controlador;
-import edu.ufsj.trabalho.terrenos.Celula;
-import edu.ufsj.trabalho.terrenos.Posicao;
-import edu.ufsj.trabalho.terrenos.Terreno;
+import edu.ufsj.trabalho.api.controladores.Controlador;
+import edu.ufsj.trabalho.api.robos.Direcoes;
+import edu.ufsj.trabalho.api.robos.Movimentacao;
+import edu.ufsj.trabalho.api.robos.Robo;
+import edu.ufsj.trabalho.api.terrenos.Celula;
+import edu.ufsj.trabalho.api.terrenos.Posicao;
+import edu.ufsj.trabalho.api.terrenos.Terreno;
 
 public class RoboTeste {
 

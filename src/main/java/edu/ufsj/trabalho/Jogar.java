@@ -1,55 +1,30 @@
 package edu.ufsj.trabalho;
 
-import com.google.gson.Gson;
-import edu.ufsj.trabalho.companhias.Companhia;
-import edu.ufsj.trabalho.controladores.Controlador;
-import edu.ufsj.trabalho.terrenos.Terreno;
+import edu.ufsj.trabalho.api.companhias.Companhia;
+import edu.ufsj.trabalho.api.general.JogoControlador;
+import edu.ufsj.trabalho.api.leitor.EstadoJogo;
+import edu.ufsj.trabalho.api.leitor.LeitorJson;
+import edu.ufsj.trabalho.api.terrenos.Terreno;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class Jogar {
 
     public static void main(String[] args) {
-        Gson gson = new Gson();
+        LeitorJson leitorJson =
+                new LeitorJson("src/main/java/edu/ufsj/trabalho/input/input.json");
 
+        EstadoJogo estadoJogo = leitorJson.getEstadoDoJogo();
 
-        /*
-        // Primeiro ler o arquivo
-        // Segundo inicializar o terreno e os robo
+        Terreno terreno = new Terreno(estadoJogo.getTerreno());
 
-        Terreno terreno = new Terreno(4, 4);
+        List<Companhia> companhias = estadoJogo.getCompanhias().stream()
+                .map(companhiaLeitura -> new Companhia(companhiaLeitura, terreno))
+                .collect(Collectors.toList());
 
-
-        Controlador controlador = new Controlador();
-        Robo robo = new Robo(controlador, terreno.getCelulaPosicao(new Posicao(0,0)), Direcoes.DIREITA);
-
-
-        // Iniciar loop do jogo
-        int duracaoTotal = 180;
-
-        terreno.imprimirDashboard();
-
-        while(duracaoTotal > 0) {
-            controlador.iniciarEstrategia(terreno);
-            robo.sinalizarTempoPassado();
-
-            duracaoTotal--;
-        }
-        */
-        Terreno terreno = new Terreno(4, 4);
-        Controlador controlador1 = new Controlador();
-        Companhia companhia1 = new Companhia("Alfa", controlador1,
-                2, terreno);
-
-        Controlador controlador2 = new Controlador();
-        Companhia companhia2 = new Companhia("Alfa", controlador2,
-                2, terreno);
-
-        int duracaoTotal = 180;
-
-
-        System.out.println(companhia1.getTotalHelioProspectado());
-        System.out.println(companhia2.getTotalHelioProspectado());
-        System.out.println("Equipe Vencedora:");
-
+        JogoControlador jogoControlador = new JogoControlador(280, companhias);
+        jogoControlador.iniciarJogo();
     }
 
 }

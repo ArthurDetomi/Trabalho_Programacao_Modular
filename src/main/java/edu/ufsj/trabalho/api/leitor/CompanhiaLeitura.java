@@ -1,4 +1,4 @@
-package edu.ufsj.trabalho.leitor;
+package edu.ufsj.trabalho.api.leitor;
 
 public class CompanhiaLeitura {
     private String nome;
