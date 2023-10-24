@@ -18,7 +18,7 @@ public class Controlador {
 
     protected double rugosidadeMaximaParaMovimentar = 0.9d;
 
-    protected double concentracaoMinimaParaColetar = 0.2d;
+    protected double concentracaoMinimaParaColetar = 0.1d;
 
     protected Movimentacao movimentacaoCasoSejaBloqueado = Movimentacao.ESQUERDA;
 

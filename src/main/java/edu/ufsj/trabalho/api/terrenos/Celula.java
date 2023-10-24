@@ -39,7 +39,7 @@ public class Celula {
 
     private double gerarDoubleAleatorioIntervalo(double minimo, double maximo) {
         Random random = new Random();
-        return minimo + (maximo - minimo) * random.nextDouble() + 0.1;
+        return minimo + (maximo + Double.MIN_VALUE - minimo) * random.nextDouble();
     }
 
     public Posicao getPosicao() {

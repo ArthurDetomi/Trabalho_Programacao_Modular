@@ -15,7 +15,8 @@ public class GravadorDeArquivo {
 
     private void abrirArquivo(String nomeArquivo) {
         try {
-            arquivo = new Formatter(CAMINHO_ARQUIVO + nomeArquivo + ".txt");
+            arquivo = new Formatter(CAMINHO_ARQUIVO + nomeArquivo +
+                    "_relatorio_robos_gravado.txt");
         } catch (SecurityException securityException) {
             System.err.println("Sem permissão para criar arquivo");
             System.exit(1);

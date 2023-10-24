@@ -6,13 +6,13 @@
   },
   "companhias": [
     {
-      "nome": "equipe1",
-      "quantidadeRobos": 1,
+      "nome": "alfa",
+      "quantidadeRobos": 2,
       "controlador": "controlador1"
     },
     {
-      "nome": "equipe2",
-      "quantidadeRobos": 1,
+      "nome": "beta",
+      "quantidadeRobos": 2,
       "controlador": "controlador2"
     }
   ]

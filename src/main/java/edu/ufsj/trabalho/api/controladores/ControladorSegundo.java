@@ -15,8 +15,8 @@ public class ControladorSegundo extends Controlador {
 
     public ControladorSegundo(String companhiaNome) {
         super(companhiaNome);
-        concentracaoMinimaParaColetar = 0.3d;
-        rugosidadeMaximaParaMovimentar = 0.5d;
+        concentracaoMinimaParaColetar = 0.15d;
+        rugosidadeMaximaParaMovimentar = 0.8d;
     }
 
     public ControladorSegundo(Robo robo) {
