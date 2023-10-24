@@ -33,7 +33,6 @@ public class JogoControlador {
         companhiasParticipantes.forEach(System.out::println);
         System.out.println("Companhia ganhadora " + companhiaGanhadora.getNome() +
                 " parabéns!!");
-
     }
 
     private Companhia getCompanhiaGanhadora() {

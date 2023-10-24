@@ -10,4 +10,9 @@ public class RandomUtil {
         return minimo + random.nextInt(maximo - minimo);
     }
 
+    public static double gerarDoubleAleatorioIntervalo(double minimo, double maximo) {
+        Random random = new Random();
+        return minimo + (maximo + Double.MIN_VALUE - minimo) * random.nextDouble();
+    }
+
 }

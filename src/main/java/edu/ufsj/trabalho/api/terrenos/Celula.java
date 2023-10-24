@@ -1,5 +1,7 @@
 package edu.ufsj.trabalho.api.terrenos;
 
+import edu.ufsj.trabalho.api.utils.RandomUtil;
+
 import java.util.Random;
 
 public class Celula {
@@ -16,9 +18,9 @@ public class Celula {
 
     public Celula(Posicao posicao) {
         this.posicao = posicao;
-        this.concentracaoHelio = gerarDoubleAleatorioIntervalo(0d, 1d);
-        this.rugosidadeTerreno = gerarDoubleAleatorioIntervalo(0d, 1d);
-        this.coeficienteAleatorio = gerarDoubleAleatorioIntervalo(0d, 0.1d);
+        this.concentracaoHelio = RandomUtil.gerarDoubleAleatorioIntervalo(0d, 1d);
+        this.rugosidadeTerreno = RandomUtil.gerarDoubleAleatorioIntervalo(0d, 1d);
+        this.coeficienteAleatorio = RandomUtil.gerarDoubleAleatorioIntervalo(0d, 0.1d);
         temRobo = false;
     }
 
@@ -35,11 +37,6 @@ public class Celula {
                 rugosidadeTerreno,
                 coeficienteAleatorio
         ) + "temRobo = " + temRobo + " )";
-    }
-
-    private double gerarDoubleAleatorioIntervalo(double minimo, double maximo) {
-        Random random = new Random();
-        return minimo + (maximo + Double.MIN_VALUE - minimo) * random.nextDouble();
     }
 
     public Posicao getPosicao() {
