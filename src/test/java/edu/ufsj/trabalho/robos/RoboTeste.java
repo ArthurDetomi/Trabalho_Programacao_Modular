@@ -15,7 +15,9 @@ public class RoboTeste {
 
         Celula celula = terreno.getCelulaPosicao(new Posicao(0, 0));
 
-        Controlador controlador = new Controlador();
+        String nome = "beta";
+
+        Controlador controlador = new Controlador(nome);
 
         Robo robo = new Robo(controlador, celula, Direcoes.DIREITA);
 

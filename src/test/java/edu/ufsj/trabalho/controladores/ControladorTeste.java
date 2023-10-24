@@ -12,7 +12,9 @@ public class ControladorTeste {
     public static void main(String[] args) {
         Terreno terreno = new Terreno(3, 3);
         Celula celula = terreno.getCelulaPosicao(new Posicao(0, 0));
-        Controlador controlador = new Controlador();
+
+        String nomeCompanhia = "Alfa";
+        Controlador controlador = new Controlador(nomeCompanhia);
         Robo robo = new Robo(controlador, celula, Direcoes.DIREITA);
 
         controlador.setRobo(robo);

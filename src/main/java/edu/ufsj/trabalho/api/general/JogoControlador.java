@@ -6,11 +6,11 @@ import edu.ufsj.trabalho.api.companhias.CompanhiaComparator;
 import java.util.List;
 
 public class JogoControlador {
-    private Integer duracaoJogo;
+    private Integer duracaoJogoSegundos;
     private List<Companhia> companhiasParticipantes;
 
-    public JogoControlador(Integer duracaoJogo, List<Companhia> companhiasParticipantes) {
-        this.duracaoJogo = duracaoJogo;
+    public JogoControlador(Integer duracaoJogoMinutos, List<Companhia> companhiasParticipantes) {
+        this.duracaoJogoSegundos = duracaoJogoMinutos * 60;
         this.companhiasParticipantes = companhiasParticipantes;
     }
 
@@ -19,16 +19,21 @@ public class JogoControlador {
             throw new IllegalArgumentException("Sem companhias participantes");
         }
 
-        int duracaoTotal = duracaoJogo;
+        int duracaoTotal = duracaoJogoSegundos;
 
-        while (duracaoTotal > 0) {
-            companhiasParticipantes.forEach(Companhia::jogar);
-            duracaoTotal--;
+        for (int segundoAtual = 1; segundoAtual <= duracaoTotal; segundoAtual++){
+            int segundoAtualJogo = segundoAtual;
+            companhiasParticipantes.forEach(companhia -> companhia.jogar(segundoAtualJogo));
         }
 
+        companhiasParticipantes.forEach(Companhia::fecharGravador);
+
         Companhia companhiaGanhadora = getCompanhiaGanhadora();
+        System.out.println("Placar:");
+        companhiasParticipantes.forEach(System.out::println);
         System.out.println("Companhia ganhadora " + companhiaGanhadora.getNome() +
                 " parabéns!!");
+
     }
 
     private Companhia getCompanhiaGanhadora() {

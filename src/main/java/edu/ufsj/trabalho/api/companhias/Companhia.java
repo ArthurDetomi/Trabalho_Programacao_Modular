@@ -1,16 +1,16 @@
 package edu.ufsj.trabalho.api.companhias;
 
+import edu.ufsj.trabalho.api.arquivo.escrita.GravadorDeArquivo;
 import edu.ufsj.trabalho.api.controladores.ControladorUtils;
 import edu.ufsj.trabalho.api.robos.Robo;
 import edu.ufsj.trabalho.api.terrenos.Celula;
 import edu.ufsj.trabalho.api.terrenos.Posicao;
 import edu.ufsj.trabalho.api.utils.RandomUtil;
 import edu.ufsj.trabalho.api.controladores.Controlador;
-import edu.ufsj.trabalho.api.leitor.CompanhiaLeitura;
+import edu.ufsj.trabalho.api.arquivo.leitura.CompanhiaLeitura;
 import edu.ufsj.trabalho.api.terrenos.Terreno;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -22,16 +22,22 @@ public class Companhia {
     private List<Robo> robos = new ArrayList<>();
     private final int quantidadeRobos;
 
+    private final GravadorDeArquivo gravadorDeArquivo;
+
     private final Terreno terreno;
 
     public Companhia(String nome,
                      Controlador controladorEstrategia,
                      int quantidadeRobos,
                      Terreno terreno) {
+        if (nome == null || nome.isEmpty()) {
+            throw new IllegalArgumentException("Companhia foi iniciada com nome incorreto");
+        }
         this.nome = nome;
         this.controladorEstrategia = controladorEstrategia;
         this.quantidadeRobos = quantidadeRobos;
         this.terreno = terreno;
+        gravadorDeArquivo = new GravadorDeArquivo(nome);
         criarRobos();
     }
 
@@ -39,8 +45,9 @@ public class Companhia {
         this.nome = companhiaLeitura.getNome();
         this.terreno = terreno;
         this.controladorEstrategia = ControladorUtils
-                .getControladorNome(companhiaLeitura.getControlador());
+                .getControladorNome(companhiaLeitura.getControlador(), companhiaLeitura.getNome());
         this.quantidadeRobos = companhiaLeitura.getQuantidadeRobos();
+        gravadorDeArquivo = new GravadorDeArquivo(nome);
         criarRobos();
     }
 
@@ -77,12 +84,20 @@ public class Companhia {
         }
     }
 
-    public void jogar() {
+    public void jogar(int segundoAtualJogo) {
+        System.out.println("Segundo Atual Jogo " + segundoAtualJogo);
         for (Robo robo : robos) {
             Controlador controladorRoboAtual = robo.getControlador();
-            controladorRoboAtual.iniciarEstrategia(terreno);
+            controladorRoboAtual.iniciarEstrategia(terreno, gravadorDeArquivo);
         }
+        terreno.imprimirDashboard();
+        System.out.println("\n");
     }
+
+    public void fecharGravador() {
+        gravadorDeArquivo.fecharArquivo();
+    }
+
 
     public double getTotalHelioProspectado() {
         double totalHelioProspectado = 0;
@@ -122,9 +137,9 @@ public class Companhia {
 
     @Override
     public String toString() {
-        return String.format("NOME DA EQUIPE: %s, ESTRATEGIA: %s, QUANTIDADE DE ROBOS: %d\n",
+        return String.format("NOME DA EQUIPE: %s, QUANTIDADE DE ROBOS: %d, TOTAL HELIO COLETADO %.2f\n",
                 getNome(),
-                getControladorEstrategia(),
-                getQuantidadeRobos());
+                getQuantidadeRobos(),
+                getTotalHelioProspectado());
     }
 }

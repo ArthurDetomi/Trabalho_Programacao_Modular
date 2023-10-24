@@ -2,16 +2,16 @@ package edu.ufsj.trabalho.api.controladores;
 
 public class ControladorUtils {
 
-    public static Controlador getControladorNome(String nome) {
+    public static Controlador getControladorNome(String nome, String companhiaNome) {
         switch (nome) {
             case "controlador1":
-                return new Controlador();
+                return new Controlador(companhiaNome);
             case "controlador2":
-                return new ControladorSegundo();
+                return new ControladorSegundo(companhiaNome);
             case "controlador3":
-                return new ControladorTerceiro();
+                return new ControladorTerceiro(companhiaNome);
             case "controlador4":
-                return new ControladorQuarto();
+                return new ControladorQuarto(companhiaNome);
         }
         throw new IllegalArgumentException("Controlador enviado inválido");
     }

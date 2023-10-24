@@ -2,8 +2,8 @@ package edu.ufsj.trabalho;
 
 import edu.ufsj.trabalho.api.companhias.Companhia;
 import edu.ufsj.trabalho.api.general.JogoControlador;
-import edu.ufsj.trabalho.api.leitor.EstadoJogo;
-import edu.ufsj.trabalho.api.leitor.LeitorJson;
+import edu.ufsj.trabalho.api.arquivo.leitura.EstadoJogo;
+import edu.ufsj.trabalho.api.arquivo.leitura.LeitorJson;
 import edu.ufsj.trabalho.api.terrenos.Terreno;
 
 import java.util.List;
@@ -17,13 +17,20 @@ public class Jogar {
 
         EstadoJogo estadoJogo = leitorJson.getEstadoDoJogo();
 
+        try {
+            estadoJogo.validarParametrosArquivo();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            System.exit(1);
+        }
+
         Terreno terreno = new Terreno(estadoJogo.getTerreno());
 
         List<Companhia> companhias = estadoJogo.getCompanhias().stream()
                 .map(companhiaLeitura -> new Companhia(companhiaLeitura, terreno))
                 .collect(Collectors.toList());
 
-        JogoControlador jogoControlador = new JogoControlador(280, companhias);
+        JogoControlador jogoControlador = new JogoControlador(estadoJogo.getDuracaoPartida(), companhias);
         jogoControlador.iniciarJogo();
     }
 

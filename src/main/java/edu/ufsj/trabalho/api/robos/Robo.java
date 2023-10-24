@@ -27,7 +27,7 @@ public class Robo {
             throw new IllegalArgumentException("Celula de pouso inválida");
         }
 
-        this.id = idGenerator.getAndIncrement();
+        this.id = idGenerator.incrementAndGet();
         this.controlador = controlador;
         controlador.setRobo(this);
         this.celulaAtual = celulaPouso;
@@ -60,17 +60,11 @@ public class Robo {
                 '}';
     }
 
-    public void imprimirDadosRobo(){
-        System.out.printf("Robo:[id: %d | Posição Atual: (%d,%d) | Compartimento de Hélio: %.2f]\n\n",
+    public String imprimirDadosRobo(){
+        return String.format("Robo:[id: %d | Posição Atual: (%d,%d) | Compartimento de Hélio: %.2f]",
                 id,
                 celulaAtual.getPosicao().getColuna(),
                 celulaAtual.getPosicao().getLinha(),
-                quantidadeColetadaHelio);
-    }
-
-    public void imprimirDadosRoboRelatorio(){
-        System.out.printf("Robo:[id: %d | Compartimento de Hélio: %.2f]\n",
-                id,
                 quantidadeColetadaHelio);
     }
 

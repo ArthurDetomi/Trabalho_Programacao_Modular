@@ -1,6 +1,6 @@
 package edu.ufsj.trabalho.api.terrenos;
 
-import edu.ufsj.trabalho.api.leitor.TerrenoLeitura;
+import edu.ufsj.trabalho.api.arquivo.leitura.TerrenoLeitura;
 
 public class Terreno {
 
@@ -54,10 +54,9 @@ public class Terreno {
         for (int i = 0; i < quantidadeLinhas; i++) {
             for (int j = 0; j < quantidadeColunas; j++) {
 
-                System.out.printf(String.format("\t[CH:%.2f|RT:%.2f|COE:%.2f]",
+                System.out.printf(String.format("\t[CH:%.2f|RT:%.2f]",
                         terreno[i][j].getConcentracaoHelio(),
-                        terreno[i][j].getRugosidadeTerreno(),
-                        terreno[i][j].getCoeficienteAleatorio()));
+                        terreno[i][j].getRugosidadeTerreno()));
 
                 if (terreno[i][j].isTemRobo()) {
                     System.out.print("(R)");

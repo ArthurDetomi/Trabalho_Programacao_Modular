@@ -1,4 +1,4 @@
-package edu.ufsj.trabalho.api.leitor;
+package edu.ufsj.trabalho.api.arquivo.leitura;
 
 import com.google.gson.Gson;
 

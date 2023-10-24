@@ -1,5 +1,6 @@
 package edu.ufsj.trabalho.api.controladores;
 
+import edu.ufsj.trabalho.api.arquivo.escrita.GravadorDeArquivo;
 import edu.ufsj.trabalho.api.robos.Direcoes;
 import edu.ufsj.trabalho.api.robos.Robo;
 import edu.ufsj.trabalho.api.terrenos.CelulaAdjacente;
@@ -13,8 +14,16 @@ public class Controlador {
 
     protected Direcoes direcaoInicial = Direcoes.DIREITA;
 
-    public Controlador() {
+    protected String companhiaNome;
 
+    protected double rugosidadeMaximaParaMovimentar = 0.9d;
+
+    protected double concentracaoMinimaParaColetar = 0.2d;
+
+    protected Movimentacao movimentacaoCasoSejaBloqueado = Movimentacao.ESQUERDA;
+
+    public Controlador(String companhiaNome) {
+        this.companhiaNome = companhiaNome;
     }
 
     public Direcoes getDirecaoInicial() {
@@ -66,40 +75,56 @@ public class Controlador {
         robo.sinalizarTempoPassado();
     }
 
-    public void iniciarEstrategia(Terreno terreno) {
+    public void iniciarEstrategia(Terreno terreno, GravadorDeArquivo gravadorDeArquivo) {
         sinalizarRoboTempoPassado();
         double concentracao = getConcentracaoHelioPosicaoAtualRobo();
-        if (concentracao > 0.2d) {
+        if (concentracao > concentracaoMinimaParaColetar) {
             boolean resultadoColeta = realizarSonda();
             if (!resultadoColeta) {
-                if(robo.getTempoDecorridoSegundos() == robo.tempoTotalColeta()){
-                    System.out.println("[Prospecção iniciada Robo: " + robo.getId() + "]\n\n" +
-                            "[Tempo de coleta: " + (robo.getTempoDecorridoSegundos() + 1)+
-                            " segundos]\n");
-                }
+                gravadorDeArquivo.adicionarRegistro("[Prospecção iniciada Robo: " + robo.getId() + "]\n\n" +
+                        "[Tempo de coleta: " + (robo.getTempoDecorridoSegundos() + 1) +
+                        " segundos]");
             } else {
-                System.out.println("[Helio coletado]\n");
-                robo.imprimirDadosRobo();
+                gravadorDeArquivo.adicionarRegistro("[Helio coletado]");
+                gravadorDeArquivo.adicionarRegistro(robo.imprimirDadosRobo());
             }
-        } else {
-            CelulaAdjacente proximaCelula = getRugosidadeRegiao(terreno);
-            if (proximaCelula.isVazia() || proximaCelula.isTemRobo()) {
-
-                robo.movimentar(Movimentacao.DIREITA, terreno);
-
-            } else if (proximaCelula.getRugosidade() < 0.9d) {
-
-                boolean resultado = movimentarRobo(Movimentacao.ANDA, terreno);
-                if (!resultado) {
-                    if(robo.getTempoDecorridoSegundos() == robo.tempoTotalMovimento(terreno)){
-                        System.out.println("[Direção Atual Robo: " + robo.getId() + ":"+ robo.getDirecaoAtual() + "]\n" +
-                                "\n[tempo do comando de movimento: " + (robo.getTempoDecorridoSegundos() + 1) + " segundos]\n");
-                    }
-                } else {
-                    robo.imprimirDadosRobo();
-                }
-            }
+            return;
         }
+        CelulaAdjacente proximaCelula = getRugosidadeRegiao(terreno);
+
+        if (proximaCelula.isVazia() || proximaCelula.isTemRobo()) {
+            robo.movimentar(movimentacaoCasoSejaBloqueado, terreno);
+            gravadorDeArquivo.adicionarRegistro(robo.imprimirDadosRobo() +
+                    " esta bloqueado então movimentou para " + movimentacaoCasoSejaBloqueado.getDescricao()
+                    + " apontando para " + getRobo().getDirecaoAtual().getDescricao());
+            return;
+        }
+
+        if (proximaCelula.getRugosidade() < rugosidadeMaximaParaMovimentar) {
+            boolean resultado = movimentarRobo(Movimentacao.ANDA, terreno);
+            if (!resultado) {
+                gravadorDeArquivo.adicionarRegistro("[Direção Atual Robo: " + robo.getId() + ":" +
+                        robo.getDirecaoAtual() + "]\n" +
+                        "\n[tempo do comando de movimento: " +
+                        (robo.getTempoDecorridoSegundos() + 1) + " segundos]");
+
+            } else {
+                gravadorDeArquivo.adicionarRegistro(robo.imprimirDadosRobo());
+            }
+            return;
+        }
+        robo.movimentar(movimentacaoCasoSejaBloqueado, terreno);
+        gravadorDeArquivo.adicionarRegistro(robo.imprimirDadosRobo() +
+                " celula a frente com rugosidade muito alta movimentando para "
+                + movimentacaoCasoSejaBloqueado.getDescricao()
+                + " apontando para " + getRobo().getDirecaoAtual().getDescricao());
     }
 
+    public String getCompanhiaNome() {
+        return companhiaNome;
+    }
+
+    public void setCompanhiaNome(String companhiaNome) {
+        this.companhiaNome = companhiaNome;
+    }
 }

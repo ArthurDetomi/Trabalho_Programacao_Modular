@@ -1,17 +1,18 @@
 {
+  "duracaoPartida": 60,
   "terreno": {
-    "quantidadeLinhas": 3,
-    "quantidadeColunas": 3
+    "quantidadeLinhas": 2,
+    "quantidadeColunas": 2
   },
   "companhias": [
     {
       "nome": "equipe1",
-      "quantidadeRobos": 2,
+      "quantidadeRobos": 1,
       "controlador": "controlador1"
     },
     {
       "nome": "equipe2",
-      "quantidadeRobos": 2,
+      "quantidadeRobos": 1,
       "controlador": "controlador2"
     }
   ]
