@@ -1,10 +1,8 @@
 package edu.ufsj.trabalho.api.arquivo.leitura;
 
-import edu.ufsj.trabalho.api.companhias.Companhia;
-
 import java.util.List;
 
-public class EstadoJogo {
+public class ConfigJogoLeitura {
 
     private Integer duracaoPartida;
     private TerrenoLeitura terreno;
@@ -35,16 +33,23 @@ public class EstadoJogo {
     }
 
     public void validarParametrosArquivo() {
+        int somaQuantidadeRobosTotal = 0;
         for (CompanhiaLeitura companhiaAtual : companhias) {
             if (companhiaAtual.getNome() == null || companhiaAtual.getNome().isEmpty()) {
                 throw new ExceptionInInitializerError("Dados de arquivo inválido");
             }
+            somaQuantidadeRobosTotal += companhiaAtual.getQuantidadeRobos();
         }
         if (duracaoPartida == null || duracaoPartida <= 0) {
             throw new ExceptionInInitializerError("Dados de arquivo inválido");
         }
         if (terreno.getQuantidadeLinhas() == null || terreno.getQuantidadeColunas() == 0 ||   terreno.getQuantidadeColunas() <= 0 || terreno.getQuantidadeLinhas() <= 0) {
             throw new ExceptionInInitializerError("Dados de arquivo inválido");
+        }
+        int totalCelulaTerreno = terreno.getQuantidadeColunas() * terreno.getQuantidadeLinhas();
+        if (somaQuantidadeRobosTotal > totalCelulaTerreno) {
+            throw new ExceptionInInitializerError("A configuração de terreno não é adequada" +
+                    " para acomodar todos os robôs.");
         }
     }
 }

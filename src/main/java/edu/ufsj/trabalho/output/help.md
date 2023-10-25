@@ -1,0 +1,1 @@
+Diretório no qual será gravado a saída do registro dos robôs durante a partida

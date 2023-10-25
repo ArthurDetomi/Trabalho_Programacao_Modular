@@ -13,7 +13,7 @@ public class LeitorJson {
     public LeitorJson(String caminhoDoArquivo){
         this.nomeArquivo = caminhoDoArquivo;
     }
-    public EstadoJogo getEstadoDoJogo(){
+    public ConfigJogoLeitura getEstadoDoJogo(){
         if (nomeArquivo == null || nomeArquivo.isEmpty()) {
             throw new IllegalArgumentException("Nome arquivo está nulo");
         }
@@ -24,7 +24,7 @@ public class LeitorJson {
                             Paths.get(nomeArquivo),
                             StandardCharsets.UTF_8)
             );
-            return new Gson().fromJson(json, EstadoJogo.class);
+            return new Gson().fromJson(json, ConfigJogoLeitura.class);
         } catch (IOException ex) {
             System.out.println("ERRO LEITURA ARQUIVO");
             return null;

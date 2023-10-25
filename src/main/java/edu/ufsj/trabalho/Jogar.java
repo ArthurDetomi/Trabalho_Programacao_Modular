@@ -2,7 +2,7 @@ package edu.ufsj.trabalho;
 
 import edu.ufsj.trabalho.api.companhias.Companhia;
 import edu.ufsj.trabalho.api.general.JogoControlador;
-import edu.ufsj.trabalho.api.arquivo.leitura.EstadoJogo;
+import edu.ufsj.trabalho.api.arquivo.leitura.ConfigJogoLeitura;
 import edu.ufsj.trabalho.api.arquivo.leitura.LeitorJson;
 import edu.ufsj.trabalho.api.terrenos.Terreno;
 
@@ -15,22 +15,22 @@ public class Jogar {
     public static void main(String[] args) {
         LeitorJson leitorJson = new LeitorJson(CAMINHO_ARQUIVO_ENTRADA);
 
-        EstadoJogo estadoJogo = leitorJson.getEstadoDoJogo();
+        ConfigJogoLeitura configJogoLeitura = leitorJson.getEstadoDoJogo();
 
         try {
-            estadoJogo.validarParametrosArquivo();
+            configJogoLeitura.validarParametrosArquivo();
         } catch (Exception ex) {
             ex.printStackTrace();
             System.exit(1);
         }
 
-        Terreno terreno = new Terreno(estadoJogo.getTerreno());
+        Terreno terreno = new Terreno(configJogoLeitura.getTerreno());
 
-        List<Companhia> companhias = estadoJogo.getCompanhias().stream()
+        List<Companhia> companhias = configJogoLeitura.getCompanhias().stream()
                 .map(companhiaLeitura -> new Companhia(companhiaLeitura, terreno))
                 .collect(Collectors.toList());
 
-        JogoControlador jogoControlador = new JogoControlador(estadoJogo.getDuracaoPartida(), companhias);
+        JogoControlador jogoControlador = new JogoControlador(configJogoLeitura.getDuracaoPartida(), companhias);
         jogoControlador.iniciarJogo();
     }
 

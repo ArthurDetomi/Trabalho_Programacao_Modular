@@ -18,7 +18,7 @@ public class Celula {
 
     public Celula(Posicao posicao) {
         this.posicao = posicao;
-        this.concentracaoHelio = RandomUtil.gerarDoubleAleatorioIntervalo(0d, 1d);
+        this.concentracaoHelio = RandomUtil.gerarDoubleAleatorioIntervalo(0d, 1d) + 0.1;
         this.rugosidadeTerreno = RandomUtil.gerarDoubleAleatorioIntervalo(0d, 1d);
         this.coeficienteAleatorio = RandomUtil.gerarDoubleAleatorioIntervalo(0d, 0.1d);
         temRobo = false;
