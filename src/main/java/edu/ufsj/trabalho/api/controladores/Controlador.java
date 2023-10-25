@@ -82,7 +82,7 @@ public class Controlador {
             boolean resultadoColeta = realizarSonda();
             if (!resultadoColeta) {
                 gravadorDeArquivo.adicionarRegistro("[Prospecção iniciada Robo]\n" +
-                        "[Tempo de coleta: " + (robo.getTempoDecorridoSegundos() + 1) +
+                        "[Tempo de coleta: " + (getTempoDecorridoProspeccao()) +
                         " segundos]");
             } else {
                 gravadorDeArquivo.adicionarRegistro("[Helio coletado]");
@@ -106,7 +106,7 @@ public class Controlador {
                 gravadorDeArquivo.adicionarRegistro("[Direção Atual Robo " + "direcao atual = "
                         + robo.getDirecaoAtual() + "]\n" +
                         "\n[tempo do comando de movimento: " +
-                        (robo.getTempoDecorridoSegundos() + 1) + " segundos]");
+                        (getTempoDecorridoProspeccao()) + " segundos]");
 
             } else {
                 gravadorDeArquivo.adicionarRegistro(robo.imprimirDadosRobo());

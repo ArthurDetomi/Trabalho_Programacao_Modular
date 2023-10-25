@@ -12,7 +12,7 @@ public class RandomUtil {
 
     public static double gerarDoubleAleatorioIntervalo(double minimo, double maximo) {
         Random random = new Random();
-        return minimo + (maximo + Double.MIN_VALUE - minimo) * random.nextDouble();
+        return minimo + (maximo - minimo) * random.nextDouble();
     }
 
 }
