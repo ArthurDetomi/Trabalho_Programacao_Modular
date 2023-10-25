@@ -95,3 +95,21 @@ NOME DA EQUIPE: beta, QUANTIDADE DE ROBOS: 3, TOTAL HELIO COLETADO 9,10
 
 Companhia ganhadora alfa parabéns!!
 ```
+- **(R)** ao lado da descrição de uma celula, significa que há um robô presente na mesma.
+
+Exemplo de um relatório dos robôs, de uma respectiva equipe:
+````txt
+[Prospecção iniciada Robo]
+[Tempo de coleta: 1 segundos]
+[Prospecção iniciada Robo]
+[Tempo de coleta: 2 segundos]
+[Helio coletado]
+Robo:[Posição Atual: (3,1) | Compartimento de Hélio: 0,33]
+[Direção Atual Robo direcao atual = DIREITA]
+
+[tempo do comando de movimento: 1 segundos]
+[Direção Atual Robo direcao atual = DIREITA]
+
+[tempo do comando de movimento: 2 segundos]
+[Direção Atual Robo direcao atual = DIREITA]
+```
